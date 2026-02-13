@@ -3,151 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qurator Agencies | Liyai Maina</title>
+    <title>Q-Rator Agencies | Liyai Maina</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #050505;
-            --accent: #ff0000;
-            --text: #ffffff;
-            --text-dim: #a0a0a0;
-            --glass: rgba(255, 255, 255, 0.03);
-            --transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
+        :root { --bg: #050505; --accent: #ff0000; --text: #ffffff; --text-dim: #a0a0a0; --glass: rgba(255, 255, 255, 0.05); --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; cursor: none; }
-        html { scroll-behavior: smooth; }
-
-        /* CUSTOM CURSOR - THE DEV TOUCH */
-        .cursor { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; position: fixed; pointer-events: none; z-index: 10000; transition: transform 0.1s ease; }
-        .cursor-follower { width: 40px; height: 40px; border: 1px solid var(--accent); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transition: transform 0.2s ease-out; }
-
-        /* NAV */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 25px 5%; position: fixed; width: 100%; z-index: 1000; background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass); }
-        .logo { font-weight: 900; letter-spacing: 5px; color: var(--accent); font-size: 1.2rem; }
+        body { background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+        
+        /* NAVIGATION */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 25px 5%; position: fixed; width: 100%; z-index: 1000; background: rgba(5, 5, 5, 0.9); backdrop-filter: blur(15px); border-bottom: 1px solid var(--glass); }
+        .logo { font-weight: 900; letter-spacing: 5px; color: var(--accent); cursor: pointer; }
         nav ul { display: flex; list-style: none; gap: 30px; }
-        nav ul a { color: var(--text); text-decoration: none; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
-        nav ul a:hover { color: var(--accent); }
+        nav ul a { color: var(--text); text-decoration: none; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* VIEW SYSTEM */
+        .view { display: none; min-height: 100vh; }
+        .view.active { display: block; animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* HERO */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 10%; background: radial-gradient(circle at 90% 10%, rgba(255,0,0,0.05) 0%, transparent 40%); }
-        .hero h1 { font-size: clamp(3rem, 12vw, 7.5rem); font-weight: 900; line-height: 0.85; margin-bottom: 20px; letter-spacing: -2px; }
-        .hero p { color: var(--text-dim); font-size: 1.1rem; max-width: 550px; margin-bottom: 40px; }
+        .hero { height: 90vh; display: flex; flex-direction: column; justify-content: center; padding: 0 10%; }
+        .hero h1 { font-size: clamp(3rem, 12vw, 7.5rem); font-weight: 900; line-height: 0.85; letter-spacing: -3px; }
+        .hero p { color: var(--text-dim); margin-top: 20px; max-width: 550px; font-size: 1.1rem; }
 
-        /* WORK SECTION */
-        .work { padding: 100px 10%; }
+        /* CASE STUDY GRID */
+        .work { padding: 80px 10% 40px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 50px; }
-        .card { opacity: 0; transform: translateY(40px); transition: var(--transition); }
-        .card.active { opacity: 1; transform: translateY(0); }
-        .img-wrap { height: 500px; background: #111; overflow: hidden; margin-bottom: 20px; border-radius: 2px; }
+        .card { cursor: pointer; transition: var(--transition); border-bottom: 1px solid transparent; padding-bottom: 20px; }
+        .card:hover { border-bottom: 1px solid var(--accent); }
+        .img-wrap { height: 480px; background: #111; overflow: hidden; margin-bottom: 20px; border: 1px solid var(--glass); }
         .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: 1.5s var(--transition); filter: grayscale(1); }
-        .card:hover img { transform: scale(1.08); filter: grayscale(0); }
-        .card h3 { font-size: 1.5rem; margin-top: 15px; text-transform: uppercase; letter-spacing: 1px; }
-        .card span { color: var(--accent); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
+        .card:hover img { transform: scale(1.05); filter: grayscale(0); }
+        .card span { color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; }
 
-        /* ABOUT SECTION (LIYAI'S BIO) */
-        .about { padding: 150px 10%; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; border-top: 1px solid var(--glass); background: #080808; }
-        .about h2 { font-size: 4rem; line-height: 1; margin-bottom: 25px; }
-        .about p { color: var(--text-dim); font-size: 1.1rem; margin-bottom: 20px; max-width: 500px; }
+        /* FULL ARCHIVE MASONRY */
+        .archive { padding: 40px 10% 100px; }
+        .masonry { column-count: 3; column-gap: 20px; }
+        .masonry img { width: 100%; margin-bottom: 20px; border: 1px solid var(--glass); transition: 0.4s; filter: grayscale(1); }
+        .masonry img:hover { filter: grayscale(0); }
 
-        /* CTA */
-        .btn { display: inline-block; padding: 18px 45px; border: 1px solid var(--accent); color: #fff; text-decoration: none; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; position: relative; overflow: hidden; }
-        .btn:hover { background: var(--accent); box-shadow: 0 0 30px rgba(255,0,0,0.4); }
+        /* PROJECT VIEW (SPA) */
+        .project-view { padding: 150px 10% 100px; }
+        .back-btn { color: var(--accent); text-transform: uppercase; font-weight: 700; cursor: pointer; margin-bottom: 40px; display: inline-block; font-size: 0.8rem; }
+        .project-header { display: grid; grid-template-columns: 1fr 1.5fr; gap: 50px; margin-bottom: 60px; }
+        .project-header h2 { font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1; }
+        .project-img-large { width: 100%; text-align: center; background: #080808; padding: 40px 0; }
+        .project-img-large img { max-width: 100%; height: auto; border: 1px solid var(--glass); }
 
-        footer { padding: 60px 10%; text-align: center; color: var(--text-dim); font-size: 0.75rem; border-top: 1px solid var(--glass); letter-spacing: 1px; }
+        /* ABOUT */
+        .about { padding: 100px 10%; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; border-top: 1px solid var(--glass); background: #080808; }
+        .about img { width: 100%; border: 1px solid var(--accent); padding: 5px; }
 
-        @media (max-width: 900px) { .about { grid-template-columns: 1fr; } .hero h1 { font-size: 4.5rem; } .cursor, .cursor-follower { display: none; } body { cursor: auto; } }
+        @media (max-width: 900px) { .masonry { column-count: 1; } .about { grid-template-columns: 1fr; } .project-header { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
-
     <nav>
-        <div class="logo">Q-RATOR</div>
+        <div class="logo" onclick="showView('home')">Q-RATOR</div>
         <ul>
-            <li><a href="#work">Showcase</a></li>
-            <li><a href="#about">The Agency</a></li>
+            <li><a href="#" onclick="showView('home')">Showcase</a></li>
+            <li><a href="mailto:liyai@example.com">Inquire</a></li>
         </ul>
     </nav>
 
-    <header class="hero">
-        <h1 class="reveal">BEYOND <br><span style="color:var(--accent)">VISUALS.</span></h1>
-        <p class="reveal">Liyai Maina is a graphic designer and visual strategist at Qurator Agencies, specializing in disruptive branding and editorial narratives.</p>
-        <div class="reveal"><a href="#work" class="btn">View Projects</a></div>
-    </header>
+    <main id="home" class="view active">
+        <header class="hero">
+            <h1>DISRUPT <br><span style="color:var(--accent)">IDENTITY.</span></h1>
+            <p>Liyai Maina | Qurator Agencies. Specializing in high-impact visual narratives and brand redesigns.</p>
+        </header>
 
-    <section id="work" class="work">
-        <div class="grid">
-            <div class="card reveal">
-                <div class="img-wrap"><img src="kac_narrative.webp" alt="The K.A.C Narrative"></div>
-                <span>Editorial Design</span>
-                <h3>The K.A.C Narrative</h3>
+        <section class="work">
+            <span style="color:var(--accent); font-weight:700; text-transform:uppercase; font-size:0.7rem; letter-spacing:3px;">Featured Case Studies</span>
+            <div class="grid" style="margin-top: 30px;">
+                <div class="card" onclick="openProject('editorial')">
+                    <div class="img-wrap"><img src="Liyai (3).jpeg" alt="Editorial"></div>
+                    <span>Case Study 01</span>
+                    <h3>The K.A.C Narrative: Editorial Design</h3>
+                </div>
+                <div class="card" onclick="openProject('rebrand')">
+                    <div class="img-wrap"><img src="Liyai (1).jpeg" alt="Rebrand"></div>
+                    <span>Case Study 02</span>
+                    <h3>Qurator Identity: The Rebrand</h3>
+                </div>
+                <div class="card" onclick="openProject('poster')">
+                    <div class="img-wrap"><img src="Liyai (4).jpeg" alt="Poster"></div>
+                    <span>Visual Art</span>
+                    <h3>Art Poster Collection</h3>
+                </div>
+                <div class="card" onclick="openProject('campaign')">
+                    <div class="img-wrap"><img src="Liyai (6).jpeg" alt="Campaign"></div>
+                    <span>Strategy</span>
+                    <h3>Campaign Digital Slides</h3>
+                </div>
             </div>
+        </section>
 
-            <div class="card reveal">
-                <div class="img-wrap"><img src="net_plus.webp" alt="Net+ Identity"></div>
-                <span>Brand Identity</span>
-                <h3>Net+ System</h3>
+        <section class="archive">
+            <span style="color:var(--accent); font-weight:700; text-transform:uppercase; font-size:0.7rem; letter-spacing:3px;">Visual Archive (22+)</span>
+            <div class="masonry" style="margin-top: 30px;">
+                <img src="Liyai (2).jpeg">
+                <img src="Liyai (5).jpeg">
+                <img src="Liyai (7).jpeg">
+                <img src="Liyai (8).jpeg">
+                <img src="Liyai (9).jpeg">
+                <img src="Liyai (10).jpeg">
+                <img src="Liyai (11).jpeg">
+                <img src="Liyai (12).jpeg">
+                <img src="Liyai (13).jpeg">
+                <img src="Liyai (14).jpeg">
+                <img src="Liyai (15).jpeg">
+                <img src="Liyai (16).jpeg">
+                <img src="Liyai (17).jpeg">
+                <img src="Liyai (18).jpeg">
+                <img src="Liyai (19).jpeg">
+                <img src="Liyai (20).jpeg">
+                <img src="Liyai (21).jpeg">
+                <img src="Liyai (22).jpeg">
             </div>
+        </section>
 
-            <div class="card reveal">
-                <div class="img-wrap"><img src="talanta.webp" alt="Talanta Tela Signature"></div>
-                <span>Graphic Art</span>
-                <h3>Talanta Tela Signature</h3>
+        <section class="about">
+            <img src="Frankie.jpeg" alt="Liyai Maina">
+            <div>
+                <h2 style="font-size: 3rem; margin-bottom: 20px;">Liyai Maina.</h2>
+                <p style="color:var(--text-dim)">Founder of Qurator Agencies. Trained at ALX Creative Academy. I transform brands through disruptive design thinking and strategic visual execution.</p>
             </div>
-        </div>
+        </section>
+    </main>
+
+    <section id="project-page" class="view project-view">
+        <span class="back-btn" onclick="showView('home')">← Back to Showcase</span>
+        <div id="project-content"></div>
     </section>
-
-    <section id="about" class="about">
-        <div class="reveal">
-            <img src="liyai_profile.webp" alt="Liyai Maina" style="width:100%; border-radius: 2px; filter: grayscale(1);">
-        </div>
-        <div class="reveal">
-            <h2>Disruptive <br>Design.</h2>
-            <p>Based in Nairobi and operating globally, Liyai Maina bridges the gap between raw creative energy and strategic brand execution.</p>
-            <p>Through Qurator Agencies, every project is a study in precision, typography, and visual impact—trained through the ALX Creative Academy.</p>
-            <a href="mailto:liyai@example.com" class="btn">Start a Project</a>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 Q-RATOR AGENCIES | LIYAI MAINA</p>
-    </footer>
 
     <script>
-        // PREMIUM CURSOR
-        const cursor = document.querySelector('.cursor');
-        const follower = document.querySelector('.cursor-follower');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-            follower.style.transform = `translate3d(${e.clientX - 16}px, ${e.clientY - 16}px, 0)`;
-        });
+        const projectData = {
+            editorial: { 
+                title: "The K.A.C Narrative", 
+                info: "A deep dive into editorial storytelling. This case study focuses on grid systems, typography hierarchy, and narrative-driven layouts.", 
+                img: "Liyai (3).jpeg" 
+            },
+            rebrand: { 
+                title: "Qurator Rebrand", 
+                info: "The complete visual overhaul of Qurator Agencies. This system defines our identity through bold minimalism and high-contrast visuals.", 
+                img: "Liyai (1).jpeg" 
+            },
+            poster: { 
+                title: "Art Poster Collection", 
+                info: "A series of posters exploring African culture through geometric patterns and modern digital art.", 
+                img: "Liyai (4).jpeg" 
+            },
+            campaign: { 
+                title: "Campaign Slides", 
+                info: "Digital asset strategy for brand advocacy campaigns. Designed for maximum retention and visual impact.", 
+                img: "Liyai (6).jpeg" 
+            }
+        };
 
-        // REVEAL SYSTEM
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
-        }, { threshold: 0.1 });
+        function showView(viewId) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            window.scrollTo(0,0);
+        }
 
-        document.querySelectorAll('.reveal, .card').forEach(el => observer.observe(el));
-
-        // HOVER STATES
-        document.querySelectorAll('a, .card, .btn').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                follower.style.width = '80px';
-                follower.style.height = '80px';
-                follower.style.background = 'rgba(255,0,0,0.1)';
-            });
-            el.addEventListener('mouseleave', () => {
-                follower.style.width = '40px';
-                follower.style.height = '40px';
-                follower.style.background = 'none';
-            });
-        });
+        function openProject(id) {
+            const p = projectData[id];
+            document.getElementById('project-content').innerHTML = `
+                <div class="project-header">
+                    <h2>${p.title}</h2>
+                    <p style="color:var(--text-dim)">${p.info}</p>
+                </div>
+                <div class="project-img-large"><img src="${p.img}"></div>
+            `;
+            showView('project-page');
+        }
     </script>
 </body>
 </html>
