@@ -26,47 +26,39 @@
         .hero-img { width: 100%; height: 70vh; overflow: hidden; border: 1px solid var(--glass); }
         .hero-img img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* ABOUT ME SECTION */
-        .about-section { padding: 120px 10%; background: #0a0a0a; display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: center; border-top: 1px solid var(--glass); }
-        .about-text h2 { font-size: 3rem; text-transform: uppercase; margin-bottom: 25px; }
-        .about-text p { color: var(--text-dim); margin-bottom: 20px; font-size: 1.1rem; }
+        /* CASE FILE INTRO & SLIDES LINK */
+        .case-intro-box { margin: 80px 10%; padding: 60px; background: #0a0a0a; border: 1px solid var(--glass); position: relative; }
+        .case-intro-box::before { content: "STRATEGY"; position: absolute; top: -15px; left: 30px; background: var(--accent); padding: 5px 15px; font-size: 0.6rem; font-weight: 900; letter-spacing: 3px; }
+        .case-intro-box h2 { font-size: 2.5rem; text-transform: uppercase; margin-bottom: 20px; letter-spacing: -1px; }
+        .case-intro-box p { color: var(--text-dim); font-size: 1.1rem; margin-bottom: 30px; max-width: 800px; }
+        .slide-link { display: inline-flex; align-items: center; gap: 15px; color: var(--accent); text-decoration: none; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; border: 1px solid var(--accent); padding: 15px 30px; transition: 0.3s; }
+        .slide-link:hover { background: var(--accent); color: white; }
 
         /* PROJECT GRID */
-        .section-label { padding: 80px 10% 20px; font-size: 0.7rem; font-weight: 900; letter-spacing: 8px; color: var(--accent); text-transform: uppercase; text-align: center; }
+        .section-label { padding: 100px 10% 20px; font-size: 0.7rem; font-weight: 900; letter-spacing: 8px; color: var(--accent); text-transform: uppercase; text-align: center; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; padding: 0 10% 100px; }
         .card { background: #0c0c0c; border: 1px solid var(--glass); cursor: pointer; transition: 0.4s; overflow: hidden; }
         .card:hover { border-color: var(--accent); transform: translateY(-10px); }
         .card img { width: 100%; height: 350px; object-fit: cover; filter: grayscale(1); }
         .card:hover img { filter: grayscale(0); }
         .card-content { padding: 25px; }
-        .card-content span { font-size: 0.6rem; font-weight: 900; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; }
 
-        /* MASTER ARCHIVE LIST */
+        /* NO OMISSION ARCHIVE */
         .archive-list { margin: 0 10% 100px; }
         .archive-item { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--glass); text-decoration: none; color: white; transition: 0.3s; }
-        .archive-item:hover { color: var(--accent); padding-left: 10px; }
+        .archive-item:hover { color: var(--accent); padding-left: 10px; background: rgba(255,0,0,0.02); }
 
-        /* VISUAL INDEX WALL */
+        /* MASONRY (Liyai 1-22 + 1.png) */
         .masonry { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; padding: 0 10% 100px; }
-        .masonry img { width: 100%; height: 250px; object-fit: cover; filter: grayscale(1); transition: 0.5s; cursor: pointer; border: 1px solid var(--glass); }
+        .masonry img { width: 100%; height: 250px; object-fit: cover; filter: grayscale(1); border: 1px solid var(--glass); transition: 0.5s; }
         .masonry img:hover { filter: grayscale(0); }
 
-        /* CONTACT SECTION */
         .contact-section { padding: 120px 10%; text-align: center; border-top: 1px solid var(--glass); }
-        .contact-links { margin-top: 40px; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
-        .contact-links a { color: var(--text); font-weight: 900; text-decoration: none; font-size: 1.1rem; letter-spacing: 3px; }
+        .contact-links a { color: var(--text); font-weight: 900; text-decoration: none; font-size: 1.1rem; margin: 0 20px; letter-spacing: 3px; transition: 0.3s; }
+        .contact-links a:hover { color: var(--accent); }
 
-        /* PROJECT VIEW */
         .case-view { padding: 150px 10% 100px; max-width: 1200px; margin: 0 auto; }
-        .cta-btn { display: inline-block; padding: 20px 45px; background: var(--accent); color: white; text-decoration: none; font-weight: 900; margin-top: 30px; text-transform: uppercase; letter-spacing: 3px; }
-
         footer { padding: 60px; text-align: center; font-size: 0.6rem; opacity: 0.3; letter-spacing: 10px; border-top: 1px solid var(--glass); }
-
-        @media (max-width: 900px) {
-            .hero { grid-template-columns: 1fr; text-align: center; }
-            .hero-img { order: -1; height: 40vh; }
-            .about-section { grid-template-columns: 1fr; }
-        }
     </style>
 </head>
 <body>
@@ -75,7 +67,6 @@
         <div class="logo" onclick="showView('home')">Q-RATOR</div>
         <ul>
             <li><a href="#projects" onclick="showView('home')">Projects</a></li>
-            <li><a href="#about" onclick="showView('home')">About</a></li>
             <li><a href="https://www.instagram.com/liyai_maina/" target="_blank">Instagram</a></li>
         </ul>
     </nav>
@@ -84,70 +75,63 @@
         <section class="hero">
             <div class="hero-text">
                 <h1>LIYAI <br><span style="color:var(--accent)">MAINA.</span></h1>
-                <p>Visual Strategist. Reformist. Reframing African identity through high-impact design systems.</p>
+                <p>Visual Strategist. Identity Architect. Disrupting institutional gatekeeping through decentralized creative systems.</p>
             </div>
             <div class="hero-img">
-                <img src="Frankie.jpeg" alt="Liyai Maina Profile">
+                <img src="Frankie.jpeg" alt="Liyai Maina">
             </div>
         </section>
 
-        <section id="about" class="about-section">
-            <div class="about-img">
-                <img src="Liyai (13).jpeg" alt="Strategy View" style="width:100%; filter:grayscale(1); border: 1px solid var(--glass);">
-            </div>
-            <div class="about-text">
-                <h2>The Maestro Strategy</h2>
-                <p>I focus on dismantling institutional gatekeeping in the design space. My work bridges the gap between raw cultural soul and professional reliability.</p>
-                <p>From national monetization frameworks like Talanta Hela to global logistics branding, I treat every project as an architecture of identity.</p>
-            </div>
+        <section class="case-intro-box">
+            <h2>The Case Study Presentation</h2>
+            <p>Go beyond the visuals. Access the strategic foundation where I break down institutional gatekeeping, brand architecture logic, and the methodology behind these reforms.</p>
+            <a href="Gate-keeping in the Arts, Culture and Design Space_.pptx" class="slide-link">
+                <span>View Presentation Slides</span>
+                <span>→</span>
+            </a>
         </section>
 
-        <div id="projects" class="section-label">Selected Case Studies</div>
+        <div id="projects" class="section-label">Selected Works</div>
         <section class="grid">
             <div class="card" onclick="openProject('p1')">
                 <img src="Liyai (5).jpeg">
-                <div class="card-content"><span>Identity Architecture</span><h3>Net Plus Rebrand</h3></div>
+                <div class="card-content"><h3>Net Plus Identity</h3></div>
             </div>
             <div class="card" onclick="openProject('p2')">
                 <img src="Liyai (6).jpeg">
-                <div class="card-content"><span>Editorial Design</span><h3>The K.A.C Narrative</h3></div>
+                <div class="card-content"><h3>K.A.C Magazine</h3></div>
             </div>
             <div class="card" onclick="openProject('p3')">
                 <img src="Liyai (11).jpeg">
-                <div class="card-content"><span>Social Advocacy</span><h3>Talanta Hela</h3></div>
-            </div>
-            <div class="card" onclick="openProject('p4')">
-                <img src="Liyai (1).jpeg">
-                <div class="card-content"><span>Visual Arts</span><h3>Pattern & Form</h3></div>
+                <div class="card-content"><h3>Talanta Hela</h3></div>
             </div>
         </section>
 
-        <div class="section-label">Full Technical Archive</div>
+        <div class="section-label">Master Asset Repository</div>
         <section class="archive-list">
             <a href="Talanta Hela - Logo_s.pdf" target="_blank" class="archive-item"><span>Talanta Hela National Framework</span><span>PDF</span></a>
+            <a href="Re-Brand Project1.pdf" target="_blank" class="archive-item"><span>Net Plus Rebrand Docs</span><span>PDF</span></a>
             <a href="DTP shipping solutions Logo.pdf" target="_blank" class="archive-item"><span>DTP Shipping Logistics</span><span>PDF</span></a>
             <a href="DTP Logo #2 [Recovered]-1.pdf" target="_blank" class="archive-item"><span>DTP Recovered #2</span><span>PDF</span></a>
-            <a href="FemiTech Design 2.pdf" target="_blank" class="archive-item"><span>FemiTech Infrastructure</span><span>PDF</span></a>
+            <a href="FemiTech Design 2.pdf" target="_blank" class="archive-item"><span>FemiTech Solutions</span><span>PDF</span></a>
             <a href="Femitech Letterhead copy.pdf" target="_blank" class="archive-item"><span>FemiTech Letterhead</span><span>PDF</span></a>
-            <a href="PCI brandmark logo.pdf" target="_blank" class="archive-item"><span>PCI Brandmark System</span><span>PDF</span></a>
-            <a href="PCI emblem logo.pdf" target="_blank" class="archive-item"><span>PCI Emblem Logic</span><span>PDF</span></a>
+            <a href="PCI brandmark logo.pdf" target="_blank" class="archive-item"><span>PCI Brandmark</span><span>PDF</span></a>
+            <a href="PCI emblem logo.pdf" target="_blank" class="archive-item"><span>PCI Emblem</span><span>PDF</span></a>
             <a href="Elite Transport & Moving Company.pdf" target="_blank" class="archive-item"><span>Elite Transport Ops</span><span>PDF</span></a>
-            <a href="Peaches_ Cocktail Menu.pdf" target="_blank" class="archive-item"><span>Peaches' Menu Design</span><span>PDF</span></a>
-            <a href="Document from Liyai Maina.pdf" target="_blank" class="archive-item"><span>Editorial Narrative</span><span>PDF</span></a>
-            <a href="Gate-keeping in the Arts, Culture and Design Space_.pptx" target="_blank" class="archive-item"><span>Gate-keeping Theory</span><span>PPTX</span></a>
+            <a href="Peaches_ Cocktail Menu.pdf" target="_blank" class="archive-item"><span>Peaches' Hospitality</span><span>PDF</span></a>
+            <a href="Document from Liyai Maina (1).pdf" target="_blank" class="archive-item"><span>Kenyan Art Culture Mag</span><span>PDF</span></a>
         </section>
 
         <div class="section-label">The Visual Index</div>
         <section class="masonry">
-            <img src="1.png"><img src="Liyai (1).jpeg"><img src="Liyai (2).jpeg"><img src="Liyai (3).jpeg"><img src="Liyai (4).jpeg"><img src="Liyai (5).jpeg"><img src="Liyai (6).jpeg"><img src="Liyai (7).jpeg"><img src="Liyai (8).jpeg"><img src="Liyai (9).jpeg"><img src="Liyai (10).jpeg"><img src="Liyai (11).jpeg"><img src="Liyai (12).jpeg"><img src="Liyai (13).jpeg"><img src="Liyai (14).jpeg"><img src="Liyai (15).jpeg"><img src="Liyai (16).jpeg"><img src="Liyai (17).jpeg"><img src="Liyai (18).jpeg"><img src="Liyai (19).jpeg"><img src="Liyai (20).jpeg"><img src="Liyai (21).jpeg"><img src="Liyai (22).jpeg">
+            <img src="1.png"><img src="Liyai (1).jpeg"><img src="Liyai (2).jpeg"><img src="Liyai (3).jpeg"><img src="Liyai (4).jpeg"><img src="Liyai (7).jpeg"><img src="Liyai (8).jpeg"><img src="Liyai (9).jpeg"><img src="Liyai (10).jpeg"><img src="Liyai (12).jpeg"><img src="Liyai (13).jpeg"><img src="Liyai (14).jpeg"><img src="Liyai (15).jpeg"><img src="Liyai (16).jpeg"><img src="Liyai (17).jpeg"><img src="Liyai (18).jpeg"><img src="Liyai (19).jpeg"><img src="Liyai (20).jpeg"><img src="Liyai (21).jpeg"><img src="Liyai (22).jpeg">
         </section>
 
         <section id="contact" class="contact-section">
-            <h2 style="text-transform: uppercase; font-size: 2.5rem; letter-spacing: 5px;">Connect</h2>
             <div class="contact-links">
                 <a href="mailto:liyaimaina@gmail.com">EMAIL</a>
                 <a href="https://www.instagram.com/liyai_maina/" target="_blank">INSTAGRAM</a>
-        
+                <a href="https://github.com/shaaas" target="_blank">GITHUB</a>
             </div>
         </section>
 
@@ -160,10 +144,9 @@
 
     <script>
         const projectData = {
-            p1: { title: "Net Plus Identity", type: "Identity System", mission: "Creating reliability in reproductive advocacy.", img: "Liyai (5).jpeg", file: "Re-Brand Project1.pdf" },
-            p2: { title: "K.A.C Magazine", type: "Editorial Layout", mission: "Reclaiming cultural narratives through luxury layout.", img: "Liyai (6).jpeg", file: "Document from Liyai Maina.pdf" },
-            p3: { title: "Talanta Hela", type: "Social Advocacy", mission: "National creative talent monetization framework.", img: "Liyai (11).jpeg", file: "Talanta Hela - Logo_s.pdf" },
-            p4: { title: "Pattern & Form", type: "Visual Arts", mission: "Exploring institutional gatekeeping in African patterns.", img: "Liyai (1).jpeg", file: "Gate-keeping in the Arts, Culture and Design Space_.pptx" }
+            p1: { title: "Net Plus Identity", type: "Identity System", mission: "Fusing organic enlightenment with institutional trust.", img: "Liyai (5).jpeg", file: "Re-Brand Project1.pdf" },
+            p2: { title: "K.A.C Narrative", type: "Editorial Design", mission: "Reclaiming cultural narratives through luxury layout.", img: "Liyai (6).jpeg", file: "Document from Liyai Maina (1).pdf" },
+            p3: { title: "Talanta Hela", type: "Advocacy", mission: "National framework for creative monetization.", img: "Liyai (11).jpeg", file: "Talanta Hela - Logo_s.pdf" }
         };
 
         function showView(v) {
@@ -175,13 +158,13 @@
         function openProject(id) {
             const p = projectData[id];
             document.getElementById('project-content').innerHTML = `
-                <p onclick="showView('home')" style="color:var(--accent); cursor:pointer; font-weight:900; letter-spacing:3px;">← BACK TO INDEX</p>
+                <p onclick="showView('home')" style="color:var(--accent); cursor:pointer; font-weight:900;">← BACK</p>
                 <div style="margin-top:50px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
                     <div>
                         <h2 style="font-size: 4rem; text-transform:uppercase; line-height:0.9; margin-bottom:20px;">${p.title}</h2>
                         <p style="color:var(--accent); font-weight:900; text-transform:uppercase; letter-spacing:2px; margin-bottom:20px;">${p.type}</p>
                         <p style="color: var(--text-dim); margin-bottom:30px;">${p.mission}</p>
-                        <a href="${p.file}" target="_blank" class="cta-btn">View Documentation</a>
+                        <a href="${p.file}" target="_blank" class="slide-link">Open PDF Case Study</a>
                     </div>
                     <div><img src="${p.img}" style="width:100%; border:1px solid var(--glass);"></div>
                 </div>
