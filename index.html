@@ -16,33 +16,30 @@
         nav ul a { color: var(--text); text-decoration: none; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
 
         .view { display: none; min-height: 100vh; }
-        .view.active { display: block; animation: fadeIn 0.6s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .view.active { display: block; animation: fadeIn 0.8s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 10%; background: radial-gradient(circle at 10% 50%, rgba(255,0,0,0.03) 0%, transparent 50%); }
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 10%; }
         .hero h1 { font-size: clamp(3rem, 10vw, 8.5rem); font-weight: 900; line-height: 0.85; letter-spacing: -5px; text-transform: uppercase; }
         .hero p { color: var(--text-dim); max-width: 650px; font-size: 1.3rem; border-left: 4px solid var(--accent); padding-left: 30px; margin-top: 30px; font-weight: 300; }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 60px; padding: 100px 10%; }
-        .card { cursor: pointer; }
-        .img-box { width: 100%; height: 550px; overflow: hidden; background: #111; margin-bottom: 25px; border: 1px solid var(--glass); }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: 1s cubic-bezier(0.19, 1, 0.22, 1); }
-        .card:hover img { filter: grayscale(0); transform: scale(1.03); }
+        /* MASONRY GRID FOR IMAGES 5-22 */
+        .masonry { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 40px; padding: 50px 10%; }
+        .work-item { position: relative; overflow: hidden; background: #111; border: 1px solid var(--glass); cursor: pointer; }
+        .work-item img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: 1.5s cubic-bezier(0.19, 1, 0.22, 1); }
+        .work-item:hover img { filter: grayscale(0); transform: scale(1.05); }
+        
+        .work-overlay { position: absolute; bottom: 0; left: 0; padding: 30px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); width: 100%; opacity: 0; transition: 0.4s; }
+        .work-item:hover .work-overlay { opacity: 1; }
+        .work-overlay h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent); }
 
-        .archive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2px; background: var(--glass); margin: 0 10% 100px; }
-        .archive-card { background: var(--bg); padding: 45px; text-decoration: none; color: white; display: flex; flex-direction: column; height: 380px; transition: 0.3s; border: 1px solid transparent; }
-        .archive-card:hover { border-color: var(--accent); background: #111; }
-        .archive-card h4 { font-size: 1.4rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
-        .archive-card p { color: var(--text-dim); font-size: 0.9rem; flex-grow: 1; }
-        .archive-tag { font-size: 0.65rem; font-weight: 900; color: var(--accent); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; display: block; }
+        /* STRATEGIC ARCHIVE */
+        .archive-section { padding: 100px 10%; background: #080808; }
+        .archive-item { display: grid; grid-template-columns: 2fr 1fr; padding: 30px 0; border-bottom: 1px solid var(--glass); text-decoration: none; color: white; transition: 0.3s; }
+        .archive-item:hover { padding-left: 20px; border-color: var(--accent); background: rgba(255,0,0,0.02); }
 
-        .project-view { padding: 150px 10% 100px; max-width: 1300px; margin: 0 auto; }
-        .cta-btn { display: inline-block; padding: 22px 60px; background: var(--accent); color: white; text-decoration: none; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; margin-top: 40px; }
-        .cta-btn:hover { background: white; color: black; }
-
-        footer { padding: 100px 10%; text-align: center; border-top: 1px solid var(--glass); }
-        .social-link { color: white; text-decoration: none; font-weight: 900; letter-spacing: 5px; margin: 0 20px; font-size: 1.2rem; transition: 0.3s; }
-        .social-link:hover { color: var(--accent); }
+        .project-view { padding: 150px 10% 100px; max-width: 1200px; margin: 0 auto; }
+        .cta-btn { display: inline-block; padding: 20px 50px; background: var(--accent); color: white; text-decoration: none; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; margin-top: 30px; }
     </style>
 </head>
 <body>
@@ -51,86 +48,72 @@
         <div class="logo" onclick="showView('home')">Q-RATOR</div>
         <ul>
             <li><a href="https://www.instagram.com/liyai_maina/" target="_blank">Instagram</a></li>
-            <li><a href="https://www.linkedin.com/in/liyaimaina" target="_blank">LinkedIn</a></li>
-            <li><a href="https://github.com/shaaas" target="_blank">GitHub</a></li>
         </ul>
     </nav>
 
     <main id="home" class="view active">
         <section class="hero">
             <h1>DISRUPT <br><span style="color:var(--accent)">IDENTITY.</span></h1>
-            <p>Liyai Maina | Lead Visual Strategist. Dismantling gatekeeping through decentralized creative systems and African-led institutional reform.</p>
+            <p>Liyai Maina | Visual Strategy for Institutional Reform. Dismantling gatekeeping through decentralized creative systems and African-led brand architecture.</p>
         </section>
 
-        <section class="grid">
-            <div class="card" onclick="openProject('rebrand')">
-                <div class="img-box"><img src="Liyai (5).jpeg"></div>
-                <span style="color:var(--accent); font-weight:900; letter-spacing:2px; font-size:0.7rem;">STRATEGIC CASE STUDY</span>
-                <h3>Net Plus Rebrand</h3>
+        <div style="padding: 100px 10% 0; font-size: 0.7rem; font-weight: 900; letter-spacing: 5px; color: var(--accent); text-transform: uppercase;">Visual Index 05-22</div>
+        <section class="masonry">
+            <div class="work-item" style="grid-row: span 2;" onclick="openProject('rebrand')">
+                <img src="Liyai (5).jpeg">
+                <div class="work-overlay"><h4>Net Plus Case Study</h4></div>
             </div>
-            <div class="card" onclick="openProject('editorial')">
-                <div class="img-box"><img src="Liyai (6).jpeg"></div>
-                <span style="color:var(--accent); font-weight:900; letter-spacing:2px; font-size:0.7rem;">CULTURAL NARRATIVE</span>
-                <h3>The K.A.C Narrative</h3>
+            <div class="work-item" onclick="openProject('editorial')">
+                <img src="Liyai (6).jpeg">
+                <div class="work-overlay"><h4>K.A.C Narrative</h4></div>
             </div>
-            <div class="card" onclick="openProject('talanta')">
-                <div class="img-box"><img src="Liyai (7).jpeg"></div>
-                <span style="color:var(--accent); font-weight:900; letter-spacing:2px; font-size:0.7rem;">GOVERNMENT REFORM</span>
-                <h3>Talanta Hela Initiative</h3>
-            </div>
-            <div class="card" onclick="openProject('peaches')">
-                <div class="img-box"><img src="Liyai (8).jpeg"></div>
-                <span style="color:var(--accent); font-weight:900; letter-spacing:2px; font-size:0.7rem;">EXPERIENCE DESIGN</span>
-                <h3>Peaches' Hospitality</h3>
-            </div>
+            <div class="work-item"><img src="Liyai (7).jpeg"></div>
+            <div class="work-item" style="grid-row: span 2;"><img src="Liyai (8).jpeg"></div>
+            <div class="work-item"><img src="Liyai (9).jpeg"></div>
+            <div class="work-item"><img src="Liyai (10).jpeg"></div>
+            <div class="work-item"><img src="Liyai (11).jpeg"></div>
+            <div class="work-item"><img src="Liyai (12).jpeg"></div>
+            <div class="work-item" style="grid-row: span 2;"><img src="Liyai (13).jpeg"></div>
+            <div class="work-item"><img src="Liyai (14).jpeg"></div>
+            <div class="work-item"><img src="Liyai (15).jpeg"></div>
+            <div class="work-item"><img src="Liyai (16).jpeg"></div>
+            <div class="work-item"><img src="Liyai (17).jpeg"></div>
+            <div class="work-item"><img src="Liyai (18).jpeg"></div>
+            <div class="work-item"><img src="Liyai (19).jpeg"></div>
+            <div class="work-item"><img src="Liyai (20).jpeg"></div>
+            <div class="work-item"><img src="Liyai (21).jpeg"></div>
+            <div class="work-item"><img src="Liyai (22).jpeg"></div>
         </section>
 
-        <h2 style="padding: 0 10%; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 8px; font-size: 0.8rem; color: var(--accent);">Strategic Archive & PDF Suite</h2>
-        <section class="archive-grid">
-            <a href="Talanta Hela - Logo_s.pdf" target="_blank" class="archive-card">
-                <span class="archive-tag">National Identity</span>
-                <h4>Talanta Hela</h4>
-                <p>Monetizing Kenyan talent through government-led creative architecture. A scalable system for sports and arts.</p>
-                <div style="font-weight:900; font-size:0.7rem; margin-top:20px; border: 1px solid #333; padding: 10px; text-align:center;">VIEW PDF</div>
+        <section class="archive-section">
+            <h2 style="text-transform: uppercase; letter-spacing: 10px; font-size: 0.8rem; color: var(--accent); margin-bottom: 50px;">Strategic PDF Suite</h2>
+            <a href="Talanta Hela - Logo_s.pdf" target="_blank" class="archive-item">
+                <div><h4>Talanta Hela</h4><p>National creative economy framework.</p></div>
+                <div style="text-align:right; font-weight:900;">OPEN PDF →</div>
             </a>
-            <a href="DTP shipping solutions Logo.pdf" target="_blank" class="archive-card">
-                <span class="archive-tag">Logistics</span>
-                <h4>DTP Shipping</h4>
-                <p>Visual systems for global supply chain solutions. Focused on reliability, precision, and logistical movement.</p>
-                <div style="font-weight:900; font-size:0.7rem; margin-top:20px; border: 1px solid #333; padding: 10px; text-align:center;">VIEW PDF</div>
+            <a href="DTP shipping solutions Logo.pdf" target="_blank" class="archive-item">
+                <div><h4>DTP Shipping</h4><p>Global logistics and supply chain identity.</p></div>
+                <div style="text-align:right; font-weight:900;">OPEN PDF →</div>
             </a>
-            <a href="FemiTech Design 2.pdf" target="_blank" class="archive-card">
-                <span class="archive-tag">Sustainability</span>
-                <h4>FemiTech Solutions</h4>
-                <p>Sustainable technology and project management branding for infrastructure development in Rongo.</p>
-                <div style="font-weight:900; font-size:0.7rem; margin-top:20px; border: 1px solid #333; padding: 10px; text-align:center;">VIEW PDF</div>
+            <a href="FemiTech Design 2.pdf" target="_blank" class="archive-item">
+                <div><h4>FemiTech Solutions</h4><p>Infrastructure branding and tech systems.</p></div>
+                <div style="text-align:right; font-weight:900;">OPEN PDF →</div>
             </a>
-            <a href="PCI brandmark logo.pdf" target="_blank" class="archive-card">
-                <span class="archive-tag">Advocacy</span>
-                <h4>PCI Initiative</h4>
-                <p>Pathway to Change brandmark system. Visualizing systemic reform and community progress.</p>
-                <div style="font-weight:900; font-size:0.7rem; margin-top:20px; border: 1px solid #333; padding: 10px; text-align:center;">VIEW PDF</div>
+            <a href="PCI brandmark logo.pdf" target="_blank" class="archive-item">
+                <div><h4>PCI Initiative</h4><p>Pathway to Change systemic reform branding.</p></div>
+                <div style="text-align:right; font-weight:900;">OPEN PDF →</div>
             </a>
-            <a href="Elite Transport & Moving Company.pdf" target="_blank" class="archive-card">
-                <span class="archive-tag">Operations</span>
-                <h4>Elite Transport</h4>
-                <p>Operational branding and logistics systems for premium moving services. Scaling professional standards.</p>
-                <div style="font-weight:900; font-size:0.7rem; margin-top:20px; border: 1px solid #333; padding: 10px; text-align:center;">VIEW PDF</div>
+            <a href="Elite Transport & Moving Company.pdf" target="_blank" class="archive-item">
+                <div><h4>Elite Transport</h4><p>Logistical operations for relocation services.</p></div>
+                <div style="text-align:right; font-weight:900;">OPEN PDF →</div>
             </a>
-            <a href="Peaches_ Cocktail Menu.pdf" target="_blank" class="archive-card">
-                <span class="archive-tag">Lifestyle</span>
-                <h4>Peaches' Menu</h4>
-                <p>Information architecture for hospitality. Sensory-led design for high-end dining experiences.</p>
-                <div style="font-weight:900; font-size:0.7rem; margin-top:20px; border: 1px solid #333; padding: 10px; text-align:center;">VIEW PDF</div>
+            <a href="Peaches_ Cocktail Menu.pdf" target="_blank" class="archive-item">
+                <div><h4>Peaches' Hospitality</h4><p>Information architecture for luxury spaces.</p></div>
+                <div style="text-align:right; font-weight:900;">OPEN PDF →</div>
             </a>
         </section>
 
-        <footer>
-            <div style="margin-bottom: 40px;">
-                <a href="https://www.instagram.com/liyai_maina/" class="social-link" target="_blank">Instagram</a>
-                <a href="https://www.linkedin.com/in/liyaimaina" class="social-link" target="_blank">LinkedIn</a>
-                <a href="https://github.com/shaaas" class="social-link" target="_blank">GitHub</a>
-            </div>
+        <footer style="padding: 80px 10%; text-align: center;">
             <p style="color:#222; font-weight:900; font-size:0.7rem; letter-spacing:10px;">Q-RATOR AGENCIES © 2026</p>
         </footer>
     </main>
@@ -142,32 +125,18 @@
     <script>
         const projectData = {
             rebrand: {
-                title: "Net Plus Rebrand",
-                mission: "Advocating for reproductive health and differently-abled rights in Kenya.",
-                strategy: "A fusion of organic enlightenment (hand-drawn elements) and institutional foundation.",
+                title: "Net Plus Brand System",
+                mission: "Advocating for reproductive health and differently-abled rights.",
+                strategy: "A fusion of organic enlightenment and institutional reliability.",
                 file: "Re-Brand Project1.pdf",
                 img: "Liyai (5).jpeg"
             },
             editorial: {
                 title: "The K.A.C Narrative",
-                mission: "Reclaiming African cultural soul through disruptive editorial excellence.",
-                strategy: "Minimalist grid layouts positioning Kenyan street style as a global luxury commodity.",
+                mission: "Reclaiming African cultural soul through editorial excellence.",
+                strategy: "Minimalist grid layouts positioning local style as global luxury.",
                 file: "Document from Liyai Maina.pdf",
                 img: "Liyai (6).jpeg"
-            },
-            talanta: {
-                title: "Talanta Hela",
-                mission: "National monetization of Kenyan creative and sports talent.",
-                strategy: "A high-visibility system designed for stadiums, digital broadcasts, and national commerce.",
-                file: "Talanta Hela - Logo_s.pdf",
-                img: "Liyai (7).jpeg"
-            },
-            peaches: {
-                title: "Peaches' Hospitality",
-                mission: "Elevating the narrative of lifestyle spaces through sensory design.",
-                strategy: "Typographic hierarchy optimized for low-light hospitality environments.",
-                file: "Peaches_ Cocktail Menu.pdf",
-                img: "Liyai (8).jpeg"
             }
         };
 
@@ -180,13 +149,13 @@
         function openProject(id) {
             const p = projectData[id];
             document.getElementById('project-content').innerHTML = `
-                <span onclick="showView('home')" style="color:var(--accent); cursor:pointer; font-weight:900; letter-spacing:3px; font-size:0.7rem;">← BACK TO INDEX</span>
-                <h2 style="font-size: clamp(2.5rem, 7vw, 6rem); text-transform:uppercase; line-height:0.9; margin:30px 0;">${p.title}</h2>
-                <div class="img-box" style="height:600px;"><img src="${p.img}" style="filter:grayscale(0);"></div>
-                <div style="display:grid; grid-template-columns: 1fr 2fr; gap:60px; margin-top:60px;">
-                    <div><h4 style="color:var(--accent); text-transform:uppercase; letter-spacing:2px; font-size:0.7rem;">The Mission</h4><p>${p.mission}</p></div>
-                    <div><h4 style="color:var(--accent); text-transform:uppercase; letter-spacing:2px; font-size:0.7rem;">The Strategic Approach</h4><p>${p.strategy}</p>
-                    <a href="${p.file}" target="_blank" class="cta-btn">View Detailed PDF Report</a></div>
+                <span onclick="showView('home')" style="color:var(--accent); cursor:pointer; font-weight:900; letter-spacing:3px;">← BACK</span>
+                <h2 style="font-size: clamp(2.5rem, 7vw, 6rem); text-transform:uppercase; margin:30px 0;">${p.title}</h2>
+                <img src="${p.img}" style="width:100%; border:1px solid var(--glass);">
+                <div style="margin-top:40px;">
+                    <p><strong>Mission:</strong> ${p.mission}</p>
+                    <p><strong>Strategy:</strong> ${p.strategy}</p>
+                    <a href="${p.file}" target="_blank" class="cta-btn">Open Case Study PDF</a>
                 </div>
             `;
             showView('project-page');
