@@ -4,62 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Q-Rator Agencies | Liyai Maina</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --bg: #050505; 
-            --accent: #ff0000; 
-            --text: #ffffff; 
-            --text-dim: #a0a0a0; 
-            --glass: rgba(255, 255, 255, 0.05); 
-        }
+        :root { --bg: #050505; --accent: #ff0000; --text: #ffffff; --text-dim: #a0a0a0; --glass: rgba(255, 255, 255, 0.08); }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         body { background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
-        ::selection { background: var(--accent); color: white; }
         
-        /* NAVIGATION */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 25px 5%; position: fixed; width: 100%; z-index: 1000; background: rgba(5, 5, 5, 0.9); backdrop-filter: blur(15px); border-bottom: 1px solid var(--glass); }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 25px 5%; position: fixed; width: 100%; z-index: 1000; background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--glass); }
         .logo { font-weight: 900; letter-spacing: 5px; color: var(--accent); cursor: pointer; text-transform: uppercase; }
         nav ul { display: flex; list-style: none; gap: 30px; }
-        nav ul a { color: var(--text); text-decoration: none; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; transition: 0.3s; }
+        nav ul a { color: var(--text); text-decoration: none; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; transition: 0.3s; }
         nav ul a:hover { color: var(--accent); }
 
-        /* VIEW SYSTEM */
         .view { display: none; min-height: 100vh; }
-        .view.active { display: block; animation: fadeIn 0.5s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .view.active { display: block; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* HERO */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 10%; background: linear-gradient(to right, #050505, #0a0a0a); }
-        .hero h1 { font-size: clamp(3.5rem, 12vw, 8.5rem); font-weight: 900; line-height: 0.8; letter-spacing: -5px; margin-bottom: 20px; text-transform: uppercase; }
-        .hero p { color: var(--text-dim); max-width: 550px; font-size: 1.2rem; border-left: 3px solid var(--accent); padding-left: 25px; margin-bottom: 40px; }
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 10%; }
+        .hero h1 { font-size: clamp(3rem, 10vw, 8.5rem); font-weight: 900; line-height: 0.85; letter-spacing: -4px; text-transform: uppercase; margin-bottom: 20px; }
+        .hero p { color: var(--text-dim); max-width: 600px; font-size: 1.25rem; border-left: 3px solid var(--accent); padding-left: 25px; }
 
-        /* PROJECT GRID */
-        .work-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; padding: 100px 10%; background: #080808; border-top: 1px solid var(--glass); }
-        .card { cursor: pointer; transition: 0.4s; padding-bottom: 25px; border-bottom: 1px solid var(--glass); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; padding: 80px 10%; background: #080808; border-top: 1px solid var(--glass); }
+        .card { cursor: pointer; transition: 0.4s; padding-bottom: 30px; border-bottom: 1px solid var(--glass); }
         .card:hover { border-color: var(--accent); }
-        .img-box { height: 350px; overflow: hidden; margin-bottom: 20px; background: #111; }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: 1s; }
+        .img-box { height: 400px; overflow: hidden; margin-bottom: 20px; background: #111; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: 0.8s ease; }
         .card:hover img { filter: grayscale(0); transform: scale(1.05); }
 
-        /* CASE STUDY PAGE STYLES */
-        .project-view { padding: 150px 10% 100px; }
-        .case-study-header { margin-bottom: 60px; }
-        .meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin: 40px 0; border-top: 1px solid var(--glass); padding-top: 30px; }
-        .doc-link { display: inline-block; padding: 18px 35px; border: 2px solid var(--accent); color: white; text-decoration: none; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; margin-top: 40px; transition: 0.3s; }
-        .doc-link:hover { background: var(--accent); }
+        .project-view { padding: 150px 10% 80px; }
+        .back-btn { color: var(--accent); font-weight: 900; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; display: inline-block; margin-bottom: 50px; }
+        .doc-link { display: inline-block; margin-top: 40px; padding: 18px 40px; background: var(--accent); color: white; text-decoration: none; font-weight: 900; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px; transition: 0.3s; }
+        .doc-link:hover { background: white; color: black; }
 
-        /* FOOTER & UI */
-        .social-footer { padding: 80px 10%; text-align: center; border-top: 1px solid var(--glass); background: #050505; }
-        .social-links { display: flex; justify-content: center; gap: 40px; margin-top: 30px; flex-wrap: wrap; }
-        .social-links a { color: var(--text-dim); text-decoration: none; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 3px; font-weight: 900; transition: 0.3s; }
-        .social-links a:hover { color: var(--accent); }
+        .social-section { padding: 120px 10%; background: #000; text-align: center; border-top: 1px solid var(--glass); }
+        .social-section h2 { font-size: 2.5rem; letter-spacing: -1px; margin-bottom: 50px; text-transform: uppercase; font-weight: 900; }
+        .social-container { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; }
+        .social-item { text-decoration: none; color: white; font-weight: 900; text-transform: uppercase; font-size: 1.3rem; letter-spacing: 4px; transition: 0.3s; border-bottom: 2px solid transparent; }
+        .social-item:hover { color: var(--accent); border-bottom: 2px solid var(--accent); }
 
-        #backToTop { position: fixed; bottom: 40px; right: 40px; width: 55px; height: 55px; background: var(--accent); color: white; border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; visibility: hidden; transition: 0.4s; z-index: 2000; font-weight: 900; box-shadow: 0 10px 20px rgba(255,0,0,0.2); }
+        #backToTop { position: fixed; bottom: 30px; right: 30px; width: 55px; height: 55px; background: var(--accent); color: white; border: none; border-radius: 50%; font-weight: 900; cursor: pointer; opacity: 0; visibility: hidden; transition: 0.4s; z-index: 2000; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
         #backToTop.show { opacity: 1; visibility: visible; }
-        #backToTop:hover { transform: translateY(-5px); background: white; color: black; }
 
-        @media (max-width: 900px) { .hero h1 { font-size: 4rem; } .work-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .social-container { gap: 30px; flex-direction: column; } .hero h1 { font-size: 4rem; } }
     </style>
 </head>
 <body>
@@ -69,7 +55,6 @@
         <ul>
             <li><a href="#work">Work</a></li>
             <li><a href="mailto:liyaimaina@gmail.com">Contact</a></li>
-            <li><a href="https://www.instagram.com/liyai_maina/" target="_blank">Instagram</a></li>
         </ul>
     </nav>
 
@@ -77,87 +62,80 @@
 
     <main id="home" class="view active">
         <section class="hero">
-            <span style="color:var(--accent); font-weight:900; letter-spacing:4px; font-size:0.75rem; text-transform:uppercase; margin-bottom:10px; display:block;">Visual Strategy Agency</span>
+            <span style="color:var(--accent); font-weight:900; letter-spacing:5px; font-size:0.8rem; margin-bottom:15px; display:block;">EST. 2026</span>
             <h1>DISRUPT <br><span style="color:var(--accent)">IDENTITY.</span></h1>
-            <p>Liyai Maina | Lead Visual Strategist. Dismantling Eurocentric gatekeeping through African-led institutional reform and decentralized creative economies.</p>
+            <p>Liyai Maina | Lead Visual Strategist. Specializing in dismantling gatekeeping through African-led institutional reform and decentralized creative systems.</p>
         </section>
 
-        <section id="work" class="work-grid">
+        <section id="work" class="grid">
             <div class="card" onclick="openProject('rebrand')">
                 <div class="img-box"><img src="Liyai (1).jpeg"></div>
-                <h3>Net Plus Brand System</h3>
-                <p style="color:var(--text-dim); font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; margin-top:5px;">Case Study: Social Impact</p>
+                <h3>Net Plus Rebrand</h3>
+                <p style="color:var(--accent); font-size:0.75rem; font-weight:900; letter-spacing:1px;">CASE STUDY: SOCIAL IMPACT</p>
             </div>
             <div class="card" onclick="openProject('editorial')">
                 <div class="img-box"><img src="Liyai (3).jpeg"></div>
                 <h3>The K.A.C Narrative</h3>
-                <p style="color:var(--text-dim); font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; margin-top:5px;">Case Study: Editorial Design</p>
+                <p style="color:var(--accent); font-size:0.75rem; font-weight:900; letter-spacing:1px;">CASE STUDY: EDITORIAL</p>
             </div>
             <div class="card" onclick="openProject('talanta')">
                 <div class="img-box"><img src="Liyai (5).jpeg"></div>
                 <h3>Talanta Hela</h3>
-                <p style="color:var(--text-dim); font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; margin-top:5px;">National Identity Design</p>
+                <p style="color:var(--text-dim); font-size:0.75rem; font-weight:700;">NATIONAL BRANDING</p>
             </div>
             <div class="card" onclick="openProject('peaches')">
                 <div class="img-box"><img src="Liyai (4).jpeg"></div>
-                <h3>Peaches' Hospitality</h3>
-                <p style="color:var(--text-dim); font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; margin-top:5px;">Lifestyle & Menu Systems</p>
+                <h3>Peaches' Menu</h3>
+                <p style="color:var(--text-dim); font-size:0.75rem; font-weight:700;">HOSPITALITY DESIGN</p>
             </div>
         </section>
 
-        <section id="about" style="padding: 120px 10%; border-top: 1px solid var(--glass);">
-            <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 30px;">The Mission.</h2>
-            <p style="color:var(--text-dim); max-width: 800px; font-size: 1.2rem; border-left: 3px solid var(--accent); padding-left: 30px;">
-                "5–10 million people across Africa are impacted by systemic gatekeeping. My work focuses on enhancing self-sufficiency through decentralization, ensuring the common creative reaps the benefits of their craft directly."
-            </p>
-        </section>
-
-        <footer class="social-footer">
-            <h2 style="font-size: 2rem; letter-spacing: -1px;">CONNECT. INSPIRE. GROW.</h2>
-            <div class="social-links">
-                <a href="https://www.instagram.com/liyai_maina/" target="_blank">Instagram</a>
-                <a href="https://linkedin.com/in/liyaimaina" target="_blank">LinkedIn</a>
-                <a href="https://github.com/shaaas" target="_blank">GitHub Archive</a>
+        <section class="social-section">
+            <h2>OWN THE NARRATIVE</h2>
+            <div class="social-container">
+                <a href="https://www.instagram.com/liyai_maina/" class="social-item" target="_blank">Instagram</a>
+                <a href="https://www.linkedin.com/in/liyaimaina" class="social-item" target="_blank">LinkedIn</a>
+                <a href="https://github.com/shaaas" class="social-item" target="_blank">GitHub</a>
             </div>
-            <p style="color: var(--text-dim); font-size: 0.65rem; margin-top: 60px; letter-spacing: 2px;">© 2026 Q-RATOR AGENCIES. ALL RIGHTS RESERVED.</p>
-        </footer>
+            <p style="margin-top: 80px; color: #333; font-size: 0.7rem; letter-spacing: 3px; font-weight: 700;">© 2026 Q-RATOR AGENCIES. ALL RIGHTS RESERVED.</p>
+        </section>
     </main>
 
     <section id="project-page" class="view project-view">
-        <span onclick="showView('home')" style="color:var(--accent); cursor:pointer; font-weight:900; letter-spacing:2px; font-size:0.8rem;">← BACK TO SHOWCASE</span>
-        <div id="project-content" style="margin-top:50px;"></div>
+        <span class="back-btn" onclick="showView('home')">← Back to Showcase</span>
+        <div id="project-content"></div>
     </section>
 
     <script>
         const projectData = {
             rebrand: { 
-                title: "Net Plus Brand System", 
-                mission: "To foster positive change by addressing sexual and reproductive health issues and advocating for the rights of differently-abled individuals in Kenya.",
-                insight: "The hand-drawn brushstroke lightbulb icon signifies innovation with a human touch, while teal-blue (#1A6B8D) provides corporate structure.",
+                title: "Net Plus Rebrand", 
+                mission: "Fostering positive change by addressing reproductive health issues and advocating for the rights of differently-abled individuals in Kenya.",
+                insight: "The hand-drawn lightbulb combines innovation with a human touch, utilizing Teal-blue (#1A6B8D) for authority.",
                 tagline: "CONNECT. INSPIRE. GROW.",
                 file: "Re-Brand Project1.pdf", 
                 img: "Liyai (1).jpeg" 
             },
             editorial: { 
                 title: "The K.A.C Narrative", 
-                mission: "Inviting the audience to see, hear, and feel the soul of the homeland through contemporary art and fashion.",
-                insight: "A disruptive high-end magazine platform spotlighting local icons like Coster Ojwang and Kimchess, countering foreign narrative dominance.",
+                mission: "Inviting the audience to feel the soul of the homeland through high-end art and fashion storytelling.",
+                insight: "A disruptive platform showcasing Kenyan icons like Coster Ojwang and Kimchess to own the cultural narrative.",
                 tagline: "LIVE YOUR PURPOSE.",
                 file: "Document from Liyai Maina.pdf", 
                 img: "Liyai (3).jpeg" 
             },
             talanta: { 
                 title: "Talanta Hela", 
-                mission: "Elevating Kenyan arts and sports talent to global recognition through a unified national brand identity.",
-                insight: "Focusing on vibrant, scalable logos that represent the energy of youth innovation and the creative economy.",
+                mission: "National initiative to monetize Kenyan creative and sports talent.",
+                insight: "Developing a high-visibility, unified brand for the national creative economy.",
                 tagline: "TALENT TO WEALTH.",
                 file: "Talanta Hela - Logo_s.pdf", 
                 img: "Liyai (5).jpeg" 
             },
             peaches: { 
                 title: "Peaches' Hospitality", 
-                mission: "Creating a sensory-led hospitality experience through typographic hierarchy and visual brand storytelling.",
-                insight: "The 'Nouveau' and 'L'aube' themes utilize distinct layout grids for cocktail and mocktail systems.",
+                mission: "Elevating lifestyle experiences through sensory branding.",
+                insight: "Using typographic hierarchy to distinguish the 'Nouveau' and 'L'aube' cocktail themes.",
                 tagline: "THE LIFESTYLE NARRATIVE.",
                 file: "Peaches_ Cocktail Menu.pdf", 
                 img: "Liyai (4).jpeg" 
@@ -173,26 +151,20 @@
         function openProject(id) {
             const p = projectData[id];
             document.getElementById('project-content').innerHTML = `
-                <div class="case-study-header">
-                    <h2 style="font-size: clamp(2.5rem, 7vw, 5rem); line-height:0.9; margin-bottom:20px;">${p.title}</h2>
-                    <p style="color:var(--accent); font-weight:900; letter-spacing:3px;">"${p.tagline}"</p>
-                </div>
-
-                <div class="meta-grid">
-                    <div>
-                        <h4 style="color:var(--text-dim); font-size:0.7rem; text-transform:uppercase; letter-spacing:2px; margin-bottom:10px;">The Mission</h4>
-                        <p style="font-size:0.95rem;">${p.mission}</p>
+                <div style="max-width: 850px;">
+                    <h2 style="font-size: clamp(2.5rem, 8vw, 5.5rem); line-height:0.9; text-transform:uppercase;">${p.title}</h2>
+                    <p style="color:var(--accent); font-weight:900; letter-spacing:3px; margin: 20px 0;">"${p.tagline}"</p>
+                    
+                    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:40px; margin: 50px 0; border-top: 1px solid var(--glass); padding-top: 30px;">
+                        <div><h4 style="color:var(--text-dim); text-transform:uppercase; font-size:0.75rem; letter-spacing:2px; margin-bottom:10px;">The Mission</h4><p>${p.mission}</p></div>
+                        <div><h4 style="color:var(--text-dim); text-transform:uppercase; font-size:0.75rem; letter-spacing:2px; margin-bottom:10px;">Design Insight</h4><p>${p.insight}</p></div>
                     </div>
-                    <div>
-                        <h4 style="color:var(--text-dim); font-size:0.7rem; text-transform:uppercase; letter-spacing:2px; margin-bottom:10px;">The Insight</h4>
-                        <p style="font-size:0.95rem;">${p.insight}</p>
+
+                    <img src="${p.img}" style="width:100%; border:1px solid var(--glass); margin-bottom: 30px;">
+                    
+                    <div style="text-align:center;">
+                        <a href="${p.file}" target="_blank" class="doc-link">View Full Case Study PDF</a>
                     </div>
-                </div>
-
-                <img src="${p.img}" style="width:100%; border:1px solid var(--glass); margin: 40px 0;">
-
-                <div style="text-align:center;">
-                    <a href="${p.file}" target="_blank" class="doc-link">Download Case Study PDF</a>
                 </div>
             `;
             showView('project-page');
@@ -200,7 +172,7 @@
 
         window.onscroll = () => { 
             const btn = document.getElementById("backToTop");
-            (document.documentElement.scrollTop > 400) ? btn.classList.add("show") : btn.classList.remove("show"); 
+            (document.documentElement.scrollTop > 500) ? btn.classList.add("show") : btn.classList.remove("show"); 
         };
     </script>
 </body>
