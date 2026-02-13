@@ -3,319 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Q-Rator Agencies | Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap" rel="stylesheet">
-    
+    <title>Q-Rator | Creative Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
-        /* CSS VARIABLES - MATCHING HIS QURATOR BRANDING */
         :root {
-            --bg: #000000;
-            --card: #0a0a0a;
-            --accent: #ff0000; /* His signature red */
+            --bg: #050505;
+            --accent: #ff0000;
             --text: #ffffff;
-            --text-dim: #888888;
+            --text-dim: #a0a0a0;
+            --transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; cursor: none; }
 
-        html {
-            scroll-behavior: smooth;
-            background-color: var(--bg);
-        }
-
-        body {
-            color: var(--text);
-            overflow-x: hidden;
-            cursor: none; /* Custom cursor takes over on desktop */
-        }
+        /* PREVENT SCROLL JUMP */
+        html { scroll-behavior: smooth; }
 
         /* CUSTOM CURSOR */
         .cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--accent);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: transform 0.15s ease-out;
+            width: 8px; height: 8px; background: var(--accent);
+            border-radius: 50%; position: fixed; pointer-events: none;
+            z-index: 10000; transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
+        }
+        .cursor-follower {
+            width: 40px; height: 40px; border: 1px solid var(--accent);
+            border-radius: 50%; position: fixed; pointer-events: none;
+            z-index: 9999; transition: transform 0.15s ease-out;
         }
 
-        .cursor.grow {
-            transform: translate(-50%, -50%) scale(3);
-            background: rgba(255, 0, 0, 0.1);
-        }
+        /* REVEAL ANIMATION */
+        .reveal { opacity: 0; transform: translateY(30px); transition: var(--transition); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* NAVIGATION - GLASSMORPHISM */
+        /* NAV */
         nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 25px 5%;
-            position: fixed;
-            width: 100%;
-            z-index: 100;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 5%; position: fixed; width: 100%; z-index: 1000;
+            background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(20px);
         }
+        .logo { font-weight: 900; letter-spacing: 5px; color: var(--accent); font-size: 1.5rem; }
+        nav ul { display: flex; list-style: none; gap: 40px; }
+        nav ul a { color: var(--text); text-decoration: none; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
 
-        .logo {
-            font-weight: 900;
-            letter-spacing: 4px;
-            color: var(--accent);
-            font-size: 1.2rem;
-        }
+        /* HERO */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 10%; }
+        .hero h1 { font-size: clamp(3rem, 15vw, 8rem); font-weight: 900; line-height: 0.8; margin-bottom: 20px; }
+        .hero p { color: var(--text-dim); font-size: 1.2rem; max-width: 600px; }
 
-        nav ul { display: flex; list-style: none; }
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            margin-left: 30px;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: 0.3s;
-        }
-        nav ul li a:hover { color: var(--accent); }
+        /* WORK GRID */
+        .work { padding: 100px 10%; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 60px; }
+        .card { position: relative; overflow: hidden; cursor: pointer; }
+        .img-wrap { overflow: hidden; background: #111; height: 500px; position: relative; }
+        .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--transition); }
+        .card:hover img { transform: scale(1.1); }
+        .card-info { margin-top: 20px; }
+        .card-info h3 { font-size: 1.5rem; text-transform: uppercase; }
+        .card-info p { color: var(--accent); font-weight: 700; font-size: 0.8rem; }
 
-        /* HERO SECTION */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 0 5%;
-            background: radial-gradient(circle at 10% 20%, rgba(255, 0, 0, 0.05) 0%, transparent 50%);
-        }
+        /* ABOUT */
+        .about { padding: 150px 10%; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .about img { width: 100%; border-radius: 2px; filter: grayscale(1); }
+        .about h2 { font-size: 4rem; line-height: 1; margin-bottom: 30px; }
 
-        .hero h1 {
-            font-size: clamp(2.5rem, 12vw, 7rem);
-            font-weight: 900;
-            line-height: 0.85;
-            margin-bottom: 20px;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            color: var(--text-dim);
-            max-width: 500px;
-        }
-
-        .accent { color: var(--accent); }
-
-        /* GALLERY SECTION */
-        .gallery { padding: 100px 5%; }
-        .section-title {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            color: var(--accent);
-            margin-bottom: 50px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .card {
-            background: var(--card);
-            border-radius: 8px;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .card.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .img-container {
-            overflow: hidden;
-            height: 450px;
-            background: #111;
-        }
-
-        .img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.7s ease;
-            filter: grayscale(20%);
-        }
-
-        .card:hover img {
-            transform: scale(1.05);
-            filter: grayscale(0%);
-        }
-
-        .card-meta { padding: 25px; border-top: 1px solid #1a1a1a; }
-        .card-meta span { color: var(--accent); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
-        .card-meta h3 { margin-top: 5px; font-size: 1.2rem; }
-
-        /* CONTACT SECTION */
-        .contact { padding: 100px 5%; background: #050505; }
-        .contact-box { max-width: 600px; }
-        .contact-box h2 { font-size: 3rem; margin-bottom: 30px; }
-
-        form { display: flex; flex-direction: column; }
-        input, textarea {
-            background: #111;
-            border: 1px solid #222;
-            color: white;
-            padding: 18px;
-            margin-bottom: 15px;
-            border-radius: 4px;
-            outline: none;
-        }
-        input:focus, textarea:focus { border-color: var(--accent); }
-
+        /* BUTTON */
         .btn {
-            display: inline-block;
-            padding: 18px 45px;
-            background: none;
-            border: 1px solid var(--accent);
-            color: white;
-            text-decoration: none;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: 0.4s;
-            width: fit-content;
+            display: inline-block; padding: 20px 50px; border: 1px solid var(--accent);
+            color: var(--text); text-decoration: none; text-transform: uppercase;
+            font-weight: 900; letter-spacing: 2px; margin-top: 40px; position: relative;
+            overflow: hidden; transition: 0.3s;
         }
+        .btn:hover { background: var(--accent); box-shadow: 0 0 40px rgba(255,0,0,0.3); }
 
-        .btn:hover {
-            background: var(--accent);
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
-        }
-
-        footer {
-            padding: 50px 5%;
-            border-top: 1px solid #111;
-            color: var(--text-dim);
-            font-size: 0.8rem;
-            text-align: center;
-        }
-
-        /* MOBILE FIXES */
-        @media (pointer: coarse) {
-            .cursor { display: none; }
-            body { cursor: auto; }
-        }
-
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
+            .about { grid-template-columns: 1fr; }
             .grid { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 4rem; }
         }
     </style>
 </head>
 <body>
 
     <div class="cursor"></div>
+    <div class="cursor-follower"></div>
 
     <nav>
         <div class="logo">Q-RATOR</div>
         <ul>
             <li><a href="#work">Work</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#about">About</a></li>
         </ul>
     </nav>
 
     <header class="hero">
-        <div class="hero-content">
-            <h1>DESIGNED TO <br><span class="accent">DISRUPT.</span></h1>
-            <p>A portfolio of bold visual identities and digital art for clients who value precision.</p>
-            <a href="#work" class="btn">View Showcase</a>
-        </div>
+        <h1 class="reveal">DISRUPT <br><span style="color:var(--accent)">IDENTITY.</span></h1>
+        <p class="reveal">Graphics and Visual Strategy by Liyai Maina. Reimagining brand narratives for a global digital stage.</p>
+        <div class="reveal"><a href="#work" class="btn">Explore Work</a></div>
     </header>
 
-    <section id="work" class="gallery">
-        <p class="section-title">Latest Projects</p>
+    <section id="work" class="work">
         <div class="grid">
-            <div class="card">
-                <div class="img-container">
-                    <img src="project1.webp" alt="Editorial Design">
-                </div>
-                <div class="card-meta">
-                    <span>Editorial Piece</span>
-                    <h3>The K.A.C Narrative</h3>
-                </div>
+            <div class="card reveal">
+                <div class="img-wrap"><img src="project1.webp" alt="Design Project"></div>
+                <div class="card-info"><p>EDITORIAL</p><h3>The K.A.C Narrative</h3></div>
             </div>
-
-            <div class="card">
-                <div class="img-container">
-                    <img src="project2.webp" alt="Branding">
-                </div>
-                <div class="card-meta">
-                    <span>Branding</span>
-                    <h3>Net+ Identity</h3>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="img-container">
-                    <img src="project3.webp" alt="Graphic Design">
-                </div>
-                <div class="card-meta">
-                    <span>Digital Art</span>
-                    <h3>Talanta Tela Signature</h3>
-                </div>
+            <div class="card reveal">
+                <div class="img-wrap"><img src="project2.webp" alt="Design Project"></div>
+                <div class="card-info"><p>BRANDING</p><h3>Net+ Identity</h3></div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="contact">
-        <div class="contact-box">
-            <h2>Let's connect.</h2>
-            <form name="contact" method="POST" data-netlify="true">
-                <input type="text" name="name" placeholder="Full Name" required>
-                <input type="email" name="email" placeholder="Email Address" required>
-                <textarea name="message" placeholder="What are we building?" rows="5"></textarea>
-                <button type="submit" class="btn">Send Inquiry</button>
-            </form>
+    <section id="about" class="about">
+        <div class="reveal"><img src="liyai.webp" alt="Liyai Maina"></div>
+        <div class="reveal">
+            <h2>Meet the <br>Designer.</h2>
+            <p style="color:var(--text-dim)">Liyai Maina is a visual communicator specializing in bold branding and disruptive editorial design. Trained at the ALX Creative Academy, his work combines technical precision with artistic intuition.</p>
+            <a href="mailto:email@example.com" class="btn">Get in Touch</a>
         </div>
     </section>
-
-    <footer>
-        <p>&copy; 2026 Qurator Agencies | Built for the Global Creative.</p>
-    </footer>
 
     <script>
-        // MOUSE FOLLOW EFFECT
+        // CURSOR
         const cursor = document.querySelector('.cursor');
+        const follower = document.querySelector('.cursor-follower');
         document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+            cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+            follower.style.transform = `translate3d(${e.clientX - 16}px, ${e.clientY - 16}px, 0)`;
         });
 
-        // CURSOR GROW ON HOVER
-        const hoverables = document.querySelectorAll('a, .card, .btn, input, textarea');
-        hoverables.forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('grow'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
-        });
-
-        // SCROLL REVEAL (INTERSECTION OBSERVER)
-        const observerOptions = { threshold: 0.1 };
+        // REVEAL ON SCROLL
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('active');
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
-        document.querySelectorAll('.card').forEach(card => observer.observe(card));
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // CURSOR INTERACTION
+        document.querySelectorAll('a, .card, .btn').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                follower.style.width = '80px';
+                follower.style.height = '80px';
+                follower.style.transform = `translate3d(${event.clientX - 36}px, ${event.clientY - 36}px, 0)`;
+                follower.style.background = 'rgba(255,0,0,0.1)';
+            });
+            el.addEventListener('mouseleave', () => {
+                follower.style.width = '40px';
+                follower.style.height = '40px';
+                follower.style.background = 'none';
+            });
+        });
     </script>
 </body>
 </html>
