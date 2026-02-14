@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ALX Portfolio | LIYAI MAINA</title>
+<title>Q-RATOR</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
 
 <style>
@@ -11,49 +11,39 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;}
 html{scroll-padding-top:120px;}
-
 nav{display:flex;justify-content:space-between;align-items:center;padding:25px 5%;position:fixed;width:100%;z-index:1000;background:rgba(5,5,5,0.95);backdrop-filter:blur(15px);border-bottom:1px solid var(--glass);}
 .logo{font-weight:900;letter-spacing:5px;color:var(--accent);cursor:pointer;text-transform:uppercase;}
 nav ul{display:flex;list-style:none;gap:20px;}
 nav ul a{color:var(--text);text-decoration:none;font-size:0.7rem;text-transform:uppercase;letter-spacing:2px;font-weight:700;}
-
 .view{display:none;min-height:100vh;padding-top:100px;}
 .view.active{display:block;animation:fadeIn 0.6s ease;}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-
 .hero{height:85vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:0 10%;gap:50px;}
 .hero-text h1{font-size:clamp(3.5rem,8vw,7rem);font-weight:900;line-height:0.85;text-transform:uppercase;margin-bottom:25px;}
 .hero-text p{color:var(--text-dim);font-size:1.2rem;border-left:4px solid var(--accent);padding-left:25px;max-width:500px;}
 .hero-img{width:100%;height:70vh;overflow:hidden;border:1px solid var(--glass);}
 .hero-img img{width:100%;height:100%;object-fit:cover;}
-
 .section-label{padding:100px 10% 20px;font-size:0.7rem;font-weight:900;letter-spacing:8px;color:var(--accent);text-transform:uppercase;text-align:center;}
-
 .archive-list{margin:0 10% 100px;}
 .archive-item{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--glass);text-decoration:none;color:white;transition:0.3s;cursor:pointer;}
 .archive-item:hover{color:var(--accent);padding-left:10px;}
-
 .masonry{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;padding:0 10% 100px;}
 .masonry img{width:100%;height:250px;object-fit:cover;filter:grayscale(1);border:1px solid var(--glass);transition:0.5s;}
 .masonry img:hover{filter:grayscale(0);}
-
 .contact-section{padding:120px 10%;text-align:center;border-top:1px solid var(--glass);}
 .contact-links a{color:var(--text);font-weight:900;text-decoration:none;font-size:1.1rem;margin:0 20px;letter-spacing:3px;transition:0.3s;}
 .contact-links a:hover{color:var(--accent);}
-
 footer{padding:60px;text-align:center;font-size:0.6rem;opacity:0.3;letter-spacing:10px;border-top:1px solid var(--glass);}
-
 @media(max-width:900px){
 .hero{grid-template-columns:1fr;height:auto;padding:50px 10%;}
 .hero-img{height:400px;}
 }
 </style>
 </head>
-
 <body>
 
 <nav>
-<div class="logo" onclick="showView('home')">ALX PORTFOLIO</div>
+<div class="logo" onclick="showView('home')">Q-RATOR</div>
 <ul>
 <li><a href="#" onclick="showView('home');return false;">Projects</a></li>
 <li><a href="#about" onclick="showView('home');setTimeout(()=>{document.getElementById('about').scrollIntoView({behavior:'smooth'});},100);return false;">About</a></li>
@@ -66,28 +56,34 @@ footer{padding:60px;text-align:center;font-size:0.6rem;opacity:0.3;letter-spacin
 <!-- HERO -->
 <section class="hero">
 <div class="hero-text">
-<h1>LIYAI <br><span style="color:var(--accent)">MAINA.</span></h1>
-<p>Dismantling institutional gatekeeping through decentralized African design systems.</p>
+<h1>PROJECTS <br><span style="color:var(--accent)">PORTFOLIO</span></h1>
+<p>Demonstrating strategic design, visual storytelling, and brand systems.</p>
 </div>
 <div class="hero-img">
-<img src="Frankie.jpeg" alt="Liyai Maina">
+<img src="Frankie.jpeg" alt="Hero Image">
 </div>
 </section>
 
 <div class="section-label">Projects | The Four Pillars</div>
 
 <section class="archive-list">
-<a class="archive-item" onclick="openCase(caseStudies.pattern)">
-<span>Pattern & Institutional Form</span><span>Visual Arts</span></a>
+<!-- Four Pillars -->
+<a class="archive-item" onclick="openCase(caseStudies.pattern)"><span>Pattern & Institutional Form</span><span>Visual Arts</span></a>
+<a class="archive-item" onclick="openCase(caseStudies.editorial)"><span>K.A.C Narrative / Kenyan Art Culture Mag</span><span>Editorial</span></a>
+<a class="archive-item" onclick="openCase(caseStudies.advocacy)"><span>Talanta Hela Framework</span><span>Social Advocacy</span></a>
+<a class="archive-item" onclick="openCase(caseStudies.brand)"><span>Net Plus Brand System</span><span>Brand Identity</span></a>
 
-<a class="archive-item" onclick="openCase(caseStudies.editorial)">
-<span>K.A.C Narrative / Kenyan Art Culture Mag</span><span>Editorial</span></a>
-
-<a class="archive-item" onclick="openCase(caseStudies.advocacy)">
-<span>Talanta Hela Framework</span><span>Social Advocacy</span></a>
-
-<a class="archive-item" onclick="openCase(caseStudies.brand)">
-<span>Net Plus Brand System</span><span>Brand Identity</span></a>
+<!-- All PDFs -->
+<a class="archive-item" onclick="openCase(caseStudies.DTP1)"><span>DTP Logo #2 Recovered</span><span>PDF</span></a>
+<a class="archive-item" onclick="openCase(caseStudies.DTP2)"><span>DTP Shipping Solutions</span><span>PDF</span></a>
+<a class="archive-item" onclick="openCase(caseStudies.Femi1)"><span>FemiTech Design 2</span><span>PDF</span></a>
+<a class="archive-item" onclick="openCase(caseStudies.Femi2)"><span>FemiTech Letterhead</span><span>PDF</span></a>
+<a class="archive-item" onclick="openCase(caseStudies.PCI1)"><span>PCI Brandmark</span><span>PDF</span></a>
+<a class="archive-item" onclick="openCase(caseStudies.PCI2)"><span>PCI Emblem</span><span>PDF</span></a>
+<a class="archive-item" onclick="openCase(caseStudies.Elite)"><span>Elite Transport Ops</span><span>PDF</span></a>
+<a class="archive-item" onclick="openCase(caseStudies.Peaches)"><span>Peaches’ Hospitality</span><span>PDF</span></a>
+<a class="archive-item" onclick="openCase(caseStudies.KACdoc)"><span>Kenyan Art Culture Mag</span><span>PDF</span></a>
+<a class="archive-item" onclick="openCase(caseStudies.Gatekeeping)"><span>Gate-keeping Presentation</span><span>PPTX</span></a>
 </section>
 
 <div class="section-label">Visual Index</div>
@@ -101,9 +97,9 @@ footer{padding:60px;text-align:center;font-size:0.6rem;opacity:0.3;letter-spacin
 
 <!-- ABOUT -->
 <div id="about" class="section-label">About</div>
-<section style="margin:0 10% 100px;" id="about">
+<section style="margin:0 10% 100px;">
 <p style="max-width:700px;color:var(--text-dim);font-size:1.1rem;">
-Liyai Maina is a Visual Strategist and Identity Architect focused on dismantling institutional gatekeeping. He combines traditional African design principles with modern digital systems to create meaningful and culturally-aware brand experiences.
+A portfolio showcasing strategic design, visual storytelling, brand systems, and digital advocacy.
 </p>
 </section>
 
@@ -112,11 +108,12 @@ Liyai Maina is a Visual Strategist and Identity Architect focused on dismantling
 <div class="contact-links">
 <a href="mailto:liyaimaina@gmail.com">EMAIL</a>
 <a href="https://www.instagram.com/liyai_maina/" target="_blank">INSTAGRAM</a>
+<a href="https://github.com/shaaas" target="_blank">GITHUB</a>
 <a href="#" target="_blank">LINKEDIN</a>
 </div>
 </section>
 
-<footer>ALX Portfolio Submission | 2026</footer>
+<footer>Q-RATOR © 2026</footer>
 
 </main>
 
@@ -127,42 +124,21 @@ Liyai Maina is a Visual Strategist and Identity Architect focused on dismantling
 
 <script>
 const caseStudies = {
+pattern:{title:"Pattern & Institutional Form", type:"Visual Arts / Pattern", description:"Traditional African patterns translated into institutional design.", role:"Pattern Design, Strategic Mapping", tools:"Illustrator, Photoshop", file:"Liyai (1).jpeg"},
+editorial:{title:"K.A.C Narrative / Kenyan Art Culture Mag", type:"Editorial", description:"Structured magazine layout demonstrating control over text and imagery.", role:"Editorial Direction, Layout Architecture", tools:"InDesign, Typography Systems", file:"Document from Liyai Maina (1).pdf"},
+advocacy:{title:"Talanta Hela National Framework", type:"Social Advocacy", description:"Design system for national creative monetization.", role:"Campaign Strategy, Visual Identity", tools:"Illustrator, InDesign", file:"Talanta Hela - Logo_s.pdf"},
+brand:{title:"Net Plus Brand System", type:"Brand Identity", description:"Full brand build including logo, typography, color system.", role:"Brand Strategy, Visual Identity, System Architecture", tools:"Illustrator, InDesign", file:"Re-Brand Project1.pdf"},
 
-pattern: {
-title:"Pattern & Institutional Form",
-type:"Visual Arts / Pattern Design",
-description:"A piece focused on translating traditional African patterns into institutional design logic.",
-role:"Pattern Design, Strategic Mapping",
-tools:"Illustrator, Photoshop",
-file:"Liyai (1).jpeg"
-},
-
-editorial: {
-title:"K.A.C Narrative / Kenyan Art Culture Mag",
-type:"Editorial & Layout Design",
-description:"Structured magazine layout demonstrating control over complex text and imagery in the arts & culture space.",
-role:"Editorial Direction, Layout Architecture",
-tools:"InDesign, Typography Systems",
-file:"Document from Liyai Maina (1).pdf"
-},
-
-advocacy: {
-title:"Talanta Hela National Framework",
-type:"Social Advocacy / Digital Campaign",
-description:"Design system for national creative monetization and advocacy.",
-role:"Campaign Strategy, Visual Identity",
-tools:"Illustrator, InDesign, Brand Logic Mapping",
-file:"Talanta Hela - Logo_s.pdf"
-},
-
-brand: {
-title:"Net Plus Brand System",
-type:"Brand Identity System",
-description:"Full brand build including logo logic, typography, color theory and visual hierarchy.",
-role:"Brand Strategy, Visual Identity, System Architecture",
-tools:"Illustrator, InDesign, Brand Logic Mapping",
-file:"Re-Brand Project1.pdf"
-}
+DTP1:{title:"DTP Logo #2 Recovered", type:"PDF", description:"Recovered DTP Logo design.", role:"Graphic Design", tools:"Illustrator", file:"DTP Logo #2 [Recovered]-1.pdf"},
+DTP2:{title:"DTP Shipping Solutions", type:"PDF", description:"DTP Shipping branding PDF.", role:"Graphic Design", tools:"Illustrator", file:"DTP shipping solutions Logo.pdf"},
+Femi1:{title:"FemiTech Design 2", type:"PDF", description:"FemiTech design work.", role:"Graphic Design", tools:"Illustrator", file:"FemiTech Design 2.pdf"},
+Femi2:{title:"FemiTech Letterhead", type:"PDF", description:"FemiTech letterhead.", role:"Graphic Design", tools:"Illustrator", file:"Femitech Letterhead copy.pdf"},
+PCI1:{title:"PCI Brandmark", type:"PDF", description:"PCI brandmark PDF.", role:"Graphic Design", tools:"Illustrator", file:"PCI brandmark logo.pdf"},
+PCI2:{title:"PCI Emblem", type:"PDF", description:"PCI emblem PDF.", role:"Graphic Design", tools:"Illustrator", file:"PCI emblem logo.pdf"},
+Elite:{title:"Elite Transport Ops", type:"PDF", description:"Elite Transport PDF.", role:"Graphic Design", tools:"Illustrator", file:"Elite Transport & Moving Company.pdf"},
+Peaches:{title:"Peaches' Hospitality", type:"PDF", description:"Peaches cocktail menu PDF.", role:"Graphic Design", tools:"Illustrator", file:"Peaches_ Cocktail Menu.pdf"},
+KACdoc:{title:"Kenyan Art Culture Mag", type:"PDF", description:"Magazine documentation PDF.", role:"Editorial Design", tools:"InDesign", file:"Document from Liyai Maina.pdf"},
+Gatekeeping:{title:"Gate-keeping Presentation", type:"PPTX", description:"Presentation on institutional gatekeeping.", role:"Strategy", tools:"PowerPoint", file:"Gate-keeping in the Arts, Culture and Design Space_.pptx"}
 };
 
 function showView(v){
@@ -183,6 +159,7 @@ const content = `
 <div><p style="font-weight:900;margin-bottom:10px;">Role</p><p style="color:var(--text-dim);">${data.role}</p></div>
 <div><p style="font-weight:900;margin-bottom:10px;">Tools</p><p style="color:var(--text-dim);">${data.tools}</p></div>
 </div>
+
 <iframe src="${encodeURI(data.file)}" style="width:100%;height:80vh;border:1px solid var(--glass);background:#111;"></iframe>
 </section>
 `;
