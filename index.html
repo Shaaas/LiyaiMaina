@@ -8,11 +8,13 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
 body{background:#000;color:#fff;line-height:1.6;}
-nav{background:#111;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;}
+nav{background:#111;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000;}
 nav a{color:#fff;text-decoration:none;margin-left:25px;font-weight:bold;}
 nav a:hover{color:red;}
-.hero{height:90vh;display:flex;justify-content:center;align-items:center;text-align:center;background:url('Frankie.jpeg') center/cover no-repeat;}
-.hero h1{font-size:3.5rem;background:rgba(0,0,0,0.7);padding:25px 40px;}
+.hero{display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:50px 40px;gap:40px;}
+.hero-text h1{font-size:3rem;margin-bottom:20px;}
+.hero-text p{color:#aaa;font-size:1.1rem;max-width:500px;}
+.hero-img img{width:100%;height:400px;object-fit:cover;border:1px solid #222;}
 section{padding:80px 40px;}
 h2{margin-bottom:30px;font-size:2rem;border-bottom:2px solid red;display:inline-block;padding-bottom:8px;}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px;margin-top:30px;}
@@ -21,20 +23,18 @@ h2{margin-bottom:30px;font-size:2rem;border-bottom:2px solid red;display:inline-
 .card img{width:100%;height:auto;margin-bottom:15px;}
 .card h3{margin-bottom:10px;}
 .card p{font-size:.9rem;margin-bottom:15px;}
-.btn{display:inline-block;padding:10px 18px;background:red;color:#fff;text-decoration:none;font-size:.85rem;}
-.btn:hover{background:#fff;color:#000;}
 .gallery img{width:100%;height:auto;border:1px solid #222;}
 footer{background:#111;padding:30px;text-align:center;margin-top:50px;}
 .view{display:none;min-height:100vh;}
 .view.active{display:block;}
 iframe{width:100%;height:80vh;border:1px solid #222;background:#111;}
-@media(max-width:768px){.hero h1{font-size:2rem;padding:20px;}}
+@media(max-width:768px){.hero{grid-template-columns:1fr;height:auto;padding:20px;}.hero-img img{height:250px;}.hero-text h1{font-size:2rem;}}
 </style>
 </head>
 <body>
 
 <nav>
-<div><strong>Q</strong></div>
+<div><strong>Q | Full Creative Portfolio</strong></div>
 <div>
 <a href="#" onclick="showView('home');return false;">Projects</a>
 <a href="#pattern" onclick="showView('home');setTimeout(()=>{document.getElementById('pattern').scrollIntoView({behavior:'smooth'});},100);return false;">Pattern</a>
@@ -46,9 +46,16 @@ iframe{width:100%;height:80vh;border:1px solid #222;background:#111;}
 <!-- HOME -->
 <main id="home" class="view active">
 
-<div class="hero">
-<h1>Dismantling Gatekeeping Through Design</h1>
+<!-- HERO SIDE BY SIDE -->
+<section class="hero">
+<div class="hero-text">
+<h1>PROJECTS PORTFOLIO</h1>
+<p>Strategic design, visual storytelling, and brand systems come together to dismantle gatekeeping in arts, culture, and digital advocacy. Explore curated highlights and full archives demonstrating skill, strategy, and impact.</p>
 </div>
+<div class="hero-img">
+<img src="Frankie.jpeg" alt="Hero Image">
+</div>
+</section>
 
 <section id="projects">
 <h2>Project Highlights</h2>
@@ -81,8 +88,7 @@ iframe{width:100%;height:80vh;border:1px solid #222;background:#111;}
 
 <h2>Liyai Pattern & Institutional Form</h2>
 <div class="grid gallery">
-<img src="Liyai (1).jpeg"><img src="Liyai (2).jpeg"><img src="Liyai (3).jpeg"><img src="Liyai (4).jpeg">
-<img src="Liyai (5).jpeg"><img src="Liyai (6).jpeg"><img src="Liyai (7).jpeg"><img src="Liyai (8).jpeg">
+.jpeg"><img src="Liyai (7).jpeg"><img src="Liyai (8).jpeg">
 <img src="Liyai (9).jpeg"><img src="Liyai (10).jpeg"><img src="Liyai (11).jpeg"><img src="Liyai (12).jpeg">
 <img src="Liyai (13).jpeg"><img src="Liyai (14).jpeg"><img src="Liyai (15).jpeg"><img src="Liyai (16).jpeg">
 <img src="Liyai (17).jpeg"><img src="Liyai (18).jpeg"><img src="Liyai (19).jpeg"><img src="Liyai (20).jpeg">
@@ -92,16 +98,17 @@ iframe{width:100%;height:80vh;border:1px solid #222;background:#111;}
 
 <section id="about">
 <h2>About</h2>
-<p>Q is a multidisciplinary design practice focused on dismantling gatekeeping in arts, culture and brand systems through structured visual language.</p>
+<p>Q | Full Creative Portfolio is a multidisciplinary design practice that merges strategy, storytelling, and bold visuals to dismantle gatekeeping in arts, culture, and brand systems. From editorial design to brand identity, every project showcases a deliberate approach to amplifying creative voices and creating impact.</p>
 </section>
 
 <section id="contact">
 <h2>Contact</h2>
 <p>Email: <a href="mailto:liyaimaina@gmail.com" style="color:red;">liyaimaina@gmail.com</a></p>
-<p>Instagram | GitHub | LinkedIn</p>
+    <a href="https://www.instagram.com/liyai_maina/" target="_blank">INSTAGRAM</a>
+<p>Instagram | LinkedIn</p>
 </section>
 
-<footer>© 2026 Q</footer>
+<footer>Q | Full Creative Portfolio © 2026</footer>
 
 </main>
 
@@ -120,13 +127,13 @@ africaArt: {title:"Africa Is Art", file:"Liyai_Maina_AFRICA IS ART.png"},
 KAC: {title:"Kenya Art & Culture Mag", file:"Document from Liyai Maina.pdf"},
 netplus: {title:"Net Plus Brand System", file:"Re-Brand Project1 (1).pdf"},
 talanta: {title:"Talanta Hela", file:"Talanta Hela - Logo_s.pdf"},
-DTP: {title:"DTP Shipping Solutions", file:"DTP shipping solutions Logo.pdf"},
-Femi2: {title:"FemiTech Letterhead", file:"Femitech Letterhead copy.pdf"},
-PCI1: {title:"PCI Brandmark", file:"PCI brandmark logo.pdf"},
-PCI2: {title:"PCI Emblem", file:"PCI emblem logo.pdf"},
-Elite: {title:"Elite Transport", file:"Elite Transport & Moving Company.pdf"},
-Peaches: {title:"Peaches' Cocktail Menu", file:"Peaches_ Cocktail Menu.pdf"},
-Gatekeeping: {title:"Gate-keeping Presentation", file:"Gate-keeping in the Arts, Culture and Design Space_.pptx"}
+DTP: {file:"DTP shipping solutions Logo.pdf"},
+Femi2: {file:"Femitech Letterhead copy.pdf"},
+PCI1: {file:"PCI brandmark logo.pdf"},
+PCI2: {file:"PCI emblem logo.pdf"},
+Elite: {file:"Elite Transport & Moving Company.pdf"},
+Peaches: {file:"Peaches' Cocktail Menu.pdf"},
+Gatekeeping: {file:"Gate-keeping in the Arts, Culture and Design Space_.pptx"}
 };
 
 function showView(v){
