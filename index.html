@@ -11,30 +11,39 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;}
 html{scroll-padding-top:120px;}
+
 nav{display:flex;justify-content:space-between;align-items:center;padding:25px 5%;position:fixed;width:100%;z-index:1000;background:rgba(5,5,5,0.95);backdrop-filter:blur(15px);border-bottom:1px solid var(--glass);}
 .logo{font-weight:900;letter-spacing:5px;color:var(--accent);cursor:pointer;text-transform:uppercase;}
 nav ul{display:flex;list-style:none;gap:20px;}
 nav ul a{color:var(--text);text-decoration:none;font-size:0.7rem;text-transform:uppercase;letter-spacing:2px;font-weight:700;}
+
 .view{display:none;min-height:100vh;padding-top:100px;}
 .view.active{display:block;animation:fadeIn 0.6s ease;}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
 .hero{height:85vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:0 10%;gap:50px;}
 .hero-text h1{font-size:clamp(3.5rem,8vw,7rem);font-weight:900;line-height:0.85;text-transform:uppercase;margin-bottom:25px;}
 .hero-text p{color:var(--text-dim);font-size:1.2rem;border-left:4px solid var(--accent);padding-left:25px;max-width:500px;}
 .hero-img{width:100%;height:70vh;overflow:hidden;border:1px solid var(--glass);}
 .hero-img img{width:100%;height:100%;object-fit:cover;}
+
 .section-label{padding:100px 10% 20px;font-size:0.7rem;font-weight:900;letter-spacing:8px;color:var(--accent);text-transform:uppercase;text-align:center;}
+
 .archive-list{margin:0 10% 100px;}
-.archive-item{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--glass);text-decoration:none;color:white;transition:0.3s;cursor:pointer;}
+.archive-item{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--glass);text-decoration:none;color:white;cursor:pointer;transition:0.3s;}
 .archive-item:hover{color:var(--accent);padding-left:10px;}
-.highlight-item{background:rgba(255,0,0,0.05); border-left: 2px solid var(--accent); padding: 25px 20px !important;}
+.highlight-item{background:rgba(255,0,0,0.05);border-left:2px solid var(--accent);padding:25px 20px !important;}
+
 .masonry{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;padding:0 10% 100px;}
 .masonry img{width:100%;height:250px;object-fit:cover;filter:grayscale(1);border:1px solid var(--glass);transition:0.5s;}
 .masonry img:hover{filter:grayscale(0);}
+
 .contact-section{padding:120px 10%;text-align:center;border-top:1px solid var(--glass);}
 .contact-links a{color:var(--text);font-weight:900;text-decoration:none;font-size:1.1rem;margin:0 20px;letter-spacing:3px;transition:0.3s;}
 .contact-links a:hover{color:var(--accent);}
+
 footer{padding:60px;text-align:center;font-size:0.6rem;opacity:0.3;letter-spacing:10px;border-top:1px solid var(--glass);}
+
 @media(max-width:900px){
 .hero{grid-template-columns:1fr;height:auto;padding:50px 10%;}
 .hero-img{height:400px;}
@@ -47,7 +56,6 @@ footer{padding:60px;text-align:center;font-size:0.6rem;opacity:0.3;letter-spacin
 <div class="logo" onclick="showView('home')">Q-RATOR</div>
 <ul>
 <li><a href="#" onclick="showView('home');return false;">Projects</a></li>
-<li><a href="#about" onclick="showView('home');setTimeout(()=>{document.getElementById('about').scrollIntoView({behavior:'smooth'});},100);return false;">About</a></li>
 <li><a href="#contact" onclick="showView('home');setTimeout(()=>{document.getElementById('contact').scrollIntoView({behavior:'smooth'});},100);return false;">Contact</a></li>
 </ul>
 </nav>
@@ -56,79 +64,104 @@ footer{padding:60px;text-align:center;font-size:0.6rem;opacity:0.3;letter-spacin
 
 <section class="hero">
 <div class="hero-text">
-<h1>PROJECTS <br><span style="color:var(--accent)">PORTFOLIO</span></h1>
-<p>Demonstrating strategic design, visual storytelling, and brand systems.</p>
+<h1>PORTFOLIO <br><span style="color:var(--accent)">PROJECTS</span></h1>
+<p>Strategic design systems, editorial structures, advocacy frameworks and identity architecture.</p>
 </div>
 <div class="hero-img">
-<img src="Frankie.jpeg" alt="Hero Image">
+<img src="Frankie.jpeg" alt="Hero">
 </div>
 </section>
 
-<div class="section-label">Curated Highlights</div>
+<div class="section-label">Featured Case Studies</div>
 <section class="archive-list">
-<a class="archive-item highlight-item" onclick="openCase(caseStudies.KACdoc)"><span>Kenya Art & Culture Editorial</span><span>FEATURED</span></a>
-<a class="archive-item highlight-item" onclick="openCase(caseStudies.brand)"><span>Netplus Rebrand Project</span><span>FEATURED</span></a>
-<a class="archive-item highlight-item" onclick="openCase(caseStudies.advocacy)"><span>Africa & Art Poster</span><span>FEATURED</span></a>
+<a class="archive-item highlight-item" onclick="openCase(caseStudies.editorial)">
+<span>Kenya Art & Culture Editorial</span><span>EDITORIAL</span></a>
+
+<a class="archive-item highlight-item" onclick="openCase(caseStudies.brand)">
+<span>Netplus Rebrand System</span><span>BRAND</span></a>
+
+<a class="archive-item highlight-item" onclick="openCase(caseStudies.poster)">
+<span>Africa Is Art Poster</span><span>VISUAL ARTS</span></a>
 </section>
 
-<div class="section-label">Full Project Archive</div>
-
+<div class="section-label">Full Archive</div>
 <section class="archive-list">
-<a class="archive-item" onclick="openCase(caseStudies.advocacy)"><span>Talanta Hela Framework</span><span>Social Advocacy</span></a>
-<a class="archive-item" onclick="openCase(caseStudies.DTP2)"><span>DTP Shipping Solutions</span><span>PDF</span></a>
-<a class="archive-item" onclick="openCase(caseStudies.Femi1)"><span>FemiTech Design 2</span><span>PDF</span></a>
-<a class="archive-item" onclick="openCase(caseStudies.Femi2)"><span>FemiTech Letterhead</span><span>PDF</span></a>
-<a class="archive-item" onclick="openCase(caseStudies.PCI1)"><span>PCI Brandmark</span><span>PDF</span></a>
-<a class="archive-item" onclick="openCase(caseStudies.PCI2)"><span>PCI Emblem</span><span>PDF</span></a>
-<a class="archive-item" onclick="openCase(caseStudies.Elite)"><span>Elite Transport Ops</span><span>PDF</span></a>
-<a class="archive-item" onclick="openCase(caseStudies.Peaches)"><span>Peaches’ Cocktail Menu</span><span>PDF</span></a>
-<a class="archive-item" onclick="openCase(caseStudies.Gatekeeping)"><span>Gate-keeping Presentation</span><span>PPTX</span></a>
+<a class="archive-item" onclick="openCase(caseStudies.advocacy)">
+<span>Talanta Hela Framework</span><span>ADVOCACY</span></a>
 </section>
 
 <div class="section-label">Visual Index</div>
 <section class="masonry">
-<img src="Liyai (6).jpeg"><img src="Liyai (7).jpeg"><img src="Liyai (8).jpeg"><img src="Liyai (9).jpeg">
-<img src="Liyai (10).jpeg"><img src="Liyai (11).jpeg"><img src="Liyai (12).jpeg"><img src="Liyai (13).jpeg"><img src="Liyai (14).jpeg">
-<img src="Liyai (15).jpeg"><img src="Liyai (16).jpeg"><img src="Liyai (17).jpeg"><img src="Liyai (18).jpeg"><img src="Liyai (19).jpeg">
-<img src="Liyai (20).jpeg"><img src="Liyai (21).jpeg"><img src="Liyai (22).jpeg">
-</section>
-
-<div id="about" class="section-label">About</div>
-<section style="margin:0 10% 100px;">
-<p style="max-width:700px;color:var(--text-dim);font-size:1.1rem;">
-A portfolio showcasing strategic design, visual storytelling, brand systems, and digital advocacy for a global audience.
-</p>
+<img src="Liyai (6).jpeg"><img src="Liyai (7).jpeg"><img src="Liyai (8).jpeg">
+<img src="Liyai (9).jpeg"><img src="Liyai (10).jpeg">
+<img src="Liyai (11).jpeg"><img src="Liyai (12).jpeg">
+<img src="Liyai (13).jpeg"><img src="Liyai (14).jpeg">
+<img src="Liyai (15).jpeg"><img src="Liyai (16).jpeg">
+<img src="Liyai (17).jpeg"><img src="Liyai (18).jpeg">
+<img src="Liyai (19).jpeg"><img src="Liyai (20).jpeg">
+<img src="Liyai (21).jpeg"><img src="Liyai (22).jpeg">
 </section>
 
 <section id="contact" class="contact-section">
 <div class="contact-links">
-<a href="mailto:liyaifrankie@gmail.com">EMAIL</a>
-<a href="https://www.instagram.com/liyai_maina/" target="_blank">INSTAGRAM</a>
+<a href="mailto:liyaimaina@gmail.com">EMAIL</a>
 </div>
 </section>
 
 <footer>Q-RATOR © 2026</footer>
-
 </main>
 
-<section id="project-page" class="view case-view">
-<div id="project-content"></div>
+<section id="project-page" class="view">
+<div id="project-content" style="padding:150px 10% 100px;max-width:1200px;margin:auto;"></div>
 </section>
 
 <script>
 const caseStudies = {
-advocacy:{title:"Africa & Art / Talanta Hela", type:"Social Advocacy", description:"Design system for national creative monetization and artistic highlighting.", role:"Campaign Strategy, Visual Identity", tools:"Illustrator, InDesign", file:"Talanta-Hela-Logo_s.pdf"},
-brand:{title:"Netplus Brand System", type:"Brand Identity", description:"Full brand build including logo, typography, color system for Netplus.", role:"Brand Strategy, Visual Identity", tools:"Illustrator, InDesign", file:"Re-Brand-Project1.pdf"},
-KACdoc:{title:"Kenyan Art Culture Mag", type:"Editorial", description:"Editorial layout and documentation of Kenyan art culture.", role:"Editorial Design", tools:"InDesign", file:"Document-from-Liyai-Maina.pdf"},
 
-DTP2:{title:"DTP Shipping Solutions", type:"PDF", description:"DTP Shipping branding solutions.", role:"Graphic Design", tools:"Illustrator", file:"DTP-shipping-solutions-Logo.pdf"},
-Femi1:{title:"FemiTech Design 2", type:"PDF", description:"FemiTech design work.", role:"Graphic Design", tools:"Illustrator", file:"FemiTech-Design-2.pdf"},
-Femi2:{title:"FemiTech Letterhead", type:"PDF", description:"FemiTech letterhead design.", role:"Graphic Design", tools:"Illustrator", file:"Femitech-Letterhead-copy.pdf"},
-PCI1:{title:"PCI Brandmark", type:"PDF", description:"PCI brandmark design.", role:"Graphic Design", tools:"Illustrator", file:"PCI-brandmark-logo.pdf"},
-PCI2:{title:"PCI Emblem", type:"PDF", description:"PCI emblem design.", role:"Graphic Design", tools:"Illustrator", file:"PCI-emblem-logo.pdf"},
-Elite:{title:"Elite Transport Ops", type:"PDF", description:"Elite Transport operational branding.", role:"Graphic Design", tools:"Illustrator", file:"Elite-Transport-Moving-Company.pdf"},
-Peaches:{title:"Peaches' Hospitality", type:"PDF", description:"Peaches cocktail menu design.", role:"Graphic Design", tools:"Illustrator", file:"Peaches-Cocktail-Menu.pdf"},
-Gatekeeping:{title:"Gate-keeping Presentation", type:"PPTX", description:"Presentation on institutional gatekeeping.", role:"Strategy", tools:"PowerPoint", file:"Gate-keeping-in-the-Arts.pptx"}
+editorial:{
+title:"Kenya Art & Culture Editorial",
+type:"Editorial & Layout Design",
+description:"Magazine layout system organizing complex text and cultural imagery.",
+problem:"Need for structured visual storytelling in cultural documentation.",
+solution:"Built a typographic and grid-based editorial architecture.",
+role:"Editorial Design",
+tools:"InDesign",
+file:"Document from Liyai Maina.pdf"
+},
+
+brand:{
+title:"Netplus Rebrand System",
+type:"Brand Identity System",
+description:"Complete brand rebuild including logo logic, typography and color structure.",
+problem:"Brand lacked cohesive identity and scalability.",
+solution:"Developed modular identity system for institutional clarity.",
+role:"Brand Strategy & Identity",
+tools:"Illustrator",
+file:"Re-Brand Project1 (1).pdf"
+},
+
+poster:{
+title:"Africa Is Art Poster",
+type:"Visual Arts / Pattern Design",
+description:"Bold visual declaration positioning Africa as cultural power.",
+problem:"African identity reduced in global creative narratives.",
+solution:"Typographic and symbolic poster reclaiming narrative authority.",
+role:"Concept & Design",
+tools:"Illustrator",
+file:"Liyai_Maina_AFRICA IS ART.png"
+},
+
+advocacy:{
+title:"Talanta Hela Framework",
+type:"Social Advocacy",
+description:"National monetization structure for creatives.",
+problem:"Creative economy lacked structured monetization pathways.",
+solution:"Designed identity and framework supporting national rollout.",
+role:"Strategy & Identity",
+tools:"Illustrator",
+file:"Talanta Hela - Logo_s.pdf"
+}
+
 };
 
 function showView(v){
@@ -138,21 +171,23 @@ window.scrollTo({top:0,behavior:'smooth'});
 }
 
 function openCase(data){
+
+let mediaContent = "";
+
+if(data.file.endsWith(".png")){
+mediaContent = `<img src="${encodeURI(data.file)}" style="width:100%;border:1px solid var(--glass);" />`;
+}else{
+mediaContent = `<iframe src="${encodeURI(data.file)}" style="width:100%;height:80vh;border:1px solid var(--glass);background:#111;"></iframe>`;
+}
+
 const content = `
-<section style="margin-bottom:40px;">
 <p onclick="showView('home')" style="color:var(--accent);cursor:pointer;font-weight:900;margin-bottom:40px;">← BACK</p>
 <h1 style="font-size:3rem;text-transform:uppercase;margin-bottom:20px;">${data.title}</h1>
 <p style="color:var(--accent);font-weight:900;text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;">${data.type}</p>
-<p style="max-width:700px;color:var(--text-dim);font-size:1.1rem;margin-bottom:40px;">${data.description}</p>
-
-<div style="display:flex;gap:60px;margin-bottom:60px;flex-wrap:wrap;">
-<div><p style="font-weight:900;margin-bottom:10px;">Role</p><p style="color:var(--text-dim);">${data.role}</p></div>
-<div><p style="font-weight:900;margin-bottom:10px;">Tools</p><p style="color:var(--text-dim);">${data.tools}</p></div>
-</div>
-
-<iframe src="${encodeURI(data.file)}" style="width:100%;height:80vh;border:1px solid var(--glass);background:#111;"></iframe>
-</section>
+<p style="max-width:800px;color:var(--text-dim);font-size:1.1rem;margin-bottom:40px;">${data.description}</p>
+${mediaContent}
 `;
+
 document.getElementById('project-content').innerHTML = content;
 showView('project-page');
 }
