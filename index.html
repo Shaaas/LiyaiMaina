@@ -5,839 +5,301 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Q-RATOR — Liyai Maina</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Neue+Haas+Grotesk+Display+Pro:wght@400;500&family=Syne:wght@400;700;800&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
-
-/* ─────────────────────────────────────
-   TOKENS
-───────────────────────────────────── */
 :root {
-  --black:   #0a0a0a;
-  --white:   #f4f1ec;
-  --grey:    #1c1c1c;
-  --grey2:   #2e2e2e;
-  --mid:     #7a7a7a;
-  --red:     #c8351a;
-  --border:  rgba(244,241,236,0.1);
-  --border2: rgba(244,241,236,0.06);
+  --black: #0a0a0a;
+  --white: #f4f1ec;
+  --grey:  #1c1c1c;
+  --grey2: #2e2e2e;
+  --mid:   #7a7a7a;
+  --red:   #c8351a;
+  --b:     rgba(244,241,236,0.1);
+  --b2:    rgba(244,241,236,0.06);
+  --sans:  'Syne', sans-serif;
+  --serif: 'EB Garamond', serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:16px;scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:var(--sans);overflow-x:hidden;cursor:none;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;}
+button{background:none;border:none;font-family:inherit;cursor:none;color:inherit;}
 
-  --sans:    'Syne', sans-serif;
-  --serif:   'EB Garamond', serif;
-}
+/* CURSOR */
+#cursor{position:fixed;width:10px;height:10px;background:var(--white);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-radius .3s;mix-blend-mode:difference;}
+body.hl #cursor{width:52px;height:52px;border-radius:0;}
 
-/* ─────────────────────────────────────
-   RESET
-───────────────────────────────────── */
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { font-size:16px; scroll-behavior:smooth; }
-body {
-  background: var(--black);
-  color: var(--white);
-  font-family: var(--sans);
-  overflow-x: hidden;
-  cursor: none;
-  -webkit-font-smoothing: antialiased;
-}
-a { color: inherit; text-decoration: none; }
-img { display: block; max-width: 100%; }
-button { background: none; border: none; font-family: inherit; cursor: none; color: inherit; }
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:60px;transition:background .4s,border-color .4s;border-bottom:1px solid transparent;}
+#nav.solid{background:rgba(10,10,10,.95);backdrop-filter:blur(16px);border-color:var(--b);}
+.nav-logo{font-weight:800;font-size:.85rem;letter-spacing:5px;text-transform:uppercase;}
+.nav-logo span{color:var(--red);}
+.nav-right{display:flex;align-items:center;}
+.nav-link{font-size:.58rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--mid);padding:0 18px;height:60px;display:flex;align-items:center;transition:color .25s;position:relative;cursor:none;}
+.nav-link::after{content:'';position:absolute;bottom:0;left:18px;right:18px;height:1px;background:var(--red);transform:scaleX(0);transition:transform .3s;}
+.nav-link:hover,.nav-link.active{color:var(--white);}
+.nav-link.active::after,.nav-link:hover::after{transform:scaleX(1);}
 
-/* ─────────────────────────────────────
-   CURSOR
-───────────────────────────────────── */
-#cursor {
-  position: fixed;
-  width: 10px; height: 10px;
-  background: var(--white);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%,-50%);
-  transition: width .3s, height .3s, background .3s, border-radius .3s;
-  mix-blend-mode: difference;
-}
-body.on-link #cursor {
-  width: 56px; height: 56px;
-  border-radius: 0;
-  background: var(--white);
-}
+/* PAGE SYSTEM */
+.page{display:none;min-height:100svh;}
+.page.active{display:block;animation:fadeIn .4s ease;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 
-/* ─────────────────────────────────────
-   NAV
-───────────────────────────────────── */
-#nav {
-  position: fixed; top:0; left:0; right:0;
-  z-index: 500;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 5%;
-  height: 60px;
-  border-bottom: 1px solid transparent;
-  transition: border-color .4s, background .4s;
-}
-#nav.solid {
-  background: rgba(10,10,10,.95);
-  backdrop-filter: blur(16px);
-  border-color: var(--border);
-}
-.nav-logo {
-  font-family: var(--sans);
-  font-weight: 800;
-  font-size: .85rem;
-  letter-spacing: 5px;
-  text-transform: uppercase;
-  color: var(--white);
-}
-.nav-logo span { color: var(--red); }
-.nav-right { display: flex; align-items: center; gap: 0; }
-.nav-link {
-  font-size: .6rem;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--mid);
-  padding: 0 20px;
-  height: 60px;
-  display: flex; align-items: center;
-  transition: color .25s;
-  position: relative;
-}
-.nav-link::after {
-  content: '';
-  position: absolute; bottom: 0; left: 20px; right: 20px;
-  height: 1px; background: var(--red);
-  transform: scaleX(0);
-  transition: transform .3s ease;
-}
-.nav-link:hover, .nav-link.active { color: var(--white); }
-.nav-link.active::after { transform: scaleX(1); }
-.nav-link:hover::after { transform: scaleX(1); }
+/* ── HOME ── */
+.hero{min-height:100svh;display:grid;grid-template-rows:1fr auto;padding-top:60px;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;top:50%;left:50%;transform:translate(-50%,-52%);font-weight:800;font-size:clamp(10rem,20vw,20rem);line-height:.85;letter-spacing:-4px;text-transform:uppercase;color:transparent;-webkit-text-stroke:1px rgba(244,241,236,.05);white-space:nowrap;pointer-events:none;user-select:none;}
+.hero-main{display:grid;grid-template-columns:1fr 1fr;align-items:end;padding:0 5% 60px;gap:60px;position:relative;z-index:1;}
+.hero-kicker{font-size:.55rem;letter-spacing:5px;text-transform:uppercase;color:var(--red);margin-bottom:28px;display:flex;align-items:center;gap:14px;}
+.hero-kicker::before{content:'';width:26px;height:1px;background:var(--red);}
+h1.hero-title{font-weight:800;font-size:clamp(3.5rem,7.5vw,8rem);line-height:.88;letter-spacing:-2px;text-transform:uppercase;}
+h1.hero-title em{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3rem,6.5vw,7rem);color:var(--mid);display:block;letter-spacing:0;margin-top:8px;}
+.hero-right{display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end;gap:32px;}
+.hero-desc{font-size:.8rem;color:var(--mid);line-height:1.9;max-width:340px;text-align:right;}
+.hero-cta{display:inline-flex;align-items:center;gap:16px;font-size:.58rem;letter-spacing:3px;text-transform:uppercase;padding:15px 26px;background:var(--white);color:var(--black);font-weight:800;transition:background .3s,color .3s,gap .3s;cursor:none;}
+.hero-cta:hover{background:var(--red);color:var(--white);gap:24px;}
+.hero-bar{display:flex;justify-content:space-between;align-items:center;padding:20px 5%;border-top:1px solid var(--b);position:relative;z-index:1;flex-wrap:wrap;gap:12px;}
+.hero-bar-item{font-size:.5rem;letter-spacing:3px;text-transform:uppercase;color:var(--mid);}
+.hero-bar-item strong{color:var(--white);}
+.scroll-hint{display:flex;align-items:center;gap:12px;font-size:.48rem;letter-spacing:3px;text-transform:uppercase;color:var(--mid);}
+.scroll-track{width:40px;height:1px;background:var(--grey2);position:relative;overflow:hidden;}
+.scroll-track::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--red);animation:sa 2s ease-in-out infinite;}
+@keyframes sa{0%{left:-100%}100%{left:100%}}
 
-/* ─────────────────────────────────────
-   PAGE SYSTEM
-───────────────────────────────────── */
-.page { display: none; min-height: 100svh; }
-.page.active { display: block; }
-
-/* ─────────────────────────────────────
-   ░░ HOME PAGE ░░
-───────────────────────────────────── */
-
-/* HERO */
-.hero {
-  min-height: 100svh;
-  display: grid;
-  grid-template-rows: 1fr auto;
-  padding-top: 60px;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Large BG text */
-.hero-bg-text {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -52%);
-  font-family: var(--sans);
-  font-weight: 800;
-  font-size: clamp(12rem, 22vw, 22rem);
-  line-height: .85;
-  letter-spacing: -4px;
-  text-transform: uppercase;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(244,241,236,.055);
-  white-space: nowrap;
-  pointer-events: none;
-  user-select: none;
-  z-index: 0;
-}
-
-.hero-main {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: end;
-  padding: 0 5% 60px;
-  gap: 60px;
-  position: relative; z-index: 1;
-}
-
-.hero-left {}
-.hero-kicker {
-  font-size: .58rem; letter-spacing: 5px; text-transform: uppercase;
-  color: var(--red); margin-bottom: 28px;
-  display: flex; align-items: center; gap: 14px;
-}
-.hero-kicker::before { content: ''; width: 28px; height: 1px; background: var(--red); }
-
-h1.hero-title {
-  font-family: var(--sans);
-  font-weight: 800;
-  font-size: clamp(3.5rem, 7.5vw, 8rem);
-  line-height: .88;
-  letter-spacing: -2px;
-  text-transform: uppercase;
-  color: var(--white);
-  margin-bottom: 0;
-}
-h1.hero-title em {
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(3rem, 6.5vw, 7rem);
-  color: var(--mid);
-  display: block;
-  letter-spacing: 0;
-  margin-top: 8px;
-}
-
-.hero-right {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-end;
-  gap: 32px;
-}
-.hero-desc {
-  font-size: .82rem;
-  color: var(--mid);
-  line-height: 1.9;
-  max-width: 340px;
-  text-align: right;
-}
-.hero-cta {
-  display: inline-flex; align-items: center; gap: 16px;
-  font-size: .6rem; letter-spacing: 3px; text-transform: uppercase;
-  padding: 16px 28px;
-  background: var(--white); color: var(--black);
-  font-family: var(--sans);
-  font-weight: 700;
-  transition: background .3s, color .3s, gap .3s;
-}
-.hero-cta:hover { background: var(--red); color: var(--white); gap: 24px; }
-
-/* Hero bottom bar */
-.hero-bar {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 20px 5%;
-  border-top: 1px solid var(--border);
-  position: relative; z-index: 1;
-}
-.hero-bar-item {
-  font-size: .52rem; letter-spacing: 3px; text-transform: uppercase;
-  color: var(--mid);
-}
-.hero-bar-item strong { color: var(--white); font-weight: 700; }
-.hero-scroll {
-  display: flex; align-items: center; gap: 12px;
-  font-size: .5rem; letter-spacing: 3px; text-transform: uppercase; color: var(--mid);
-}
-.scroll-track {
-  width: 40px; height: 1px; background: var(--grey2); position: relative; overflow: hidden;
-}
-.scroll-track::after {
-  content: '';
-  position: absolute; top:0; left:-100%; width:100%; height:100%;
-  background: var(--red);
-  animation: scrollAnim 2s ease-in-out infinite;
-}
-@keyframes scrollAnim { 0%{left:-100%} 100%{left:100%} }
-
-/* SELECTED WORK section on homepage */
-.home-work {
-  padding: 100px 5%;
-  border-top: 1px solid var(--border);
-}
-.section-header {
-  display: flex; justify-content: space-between; align-items: baseline;
-  margin-bottom: 60px;
-}
-.section-label {
-  font-size: .55rem; letter-spacing: 5px; text-transform: uppercase; color: var(--red);
-}
-.section-title {
-  font-family: var(--sans); font-weight: 800;
-  font-size: clamp(2rem, 4vw, 4rem);
-  letter-spacing: -1px; text-transform: uppercase; line-height: 1;
-}
-.section-link {
-  font-size: .58rem; letter-spacing: 3px; text-transform: uppercase; color: var(--mid);
-  transition: color .3s;
-}
-.section-link:hover { color: var(--white); }
-
-/* Work row list — like editorial credits */
-.work-list {}
-.work-item {
-  display: grid;
-  grid-template-columns: 48px 1fr 200px 80px;
-  align-items: center;
-  padding: 24px 0;
-  border-bottom: 1px solid var(--border);
-  cursor: none;
-  transition: padding-left .35s ease;
-  position: relative;
-}
-.work-item::before {
-  content: '';
-  position: absolute; left:-5%; top:0; width:0; height:100%;
-  background: rgba(200,53,26,.06);
-  transition: width .4s;
-  z-index: 0;
-}
-.work-item:hover::before { width:110%; }
-.work-item:hover { padding-left: 16px; }
-.work-item > * { position: relative; z-index: 1; }
-.wi-num {
-  font-size: .55rem; letter-spacing: 3px; color: var(--grey2); font-weight: 700;
-}
-.wi-name {
-  font-family: var(--sans); font-weight: 800;
-  font-size: clamp(1.2rem, 2.5vw, 2rem);
-  letter-spacing: -0.5px; text-transform: uppercase; line-height: 1;
-}
-.wi-tag {
-  font-size: .52rem; letter-spacing: 2px; text-transform: uppercase; color: var(--mid);
-}
-.wi-action {
-  font-size: .52rem; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--grey2); text-align: right;
-  transition: color .3s;
-}
-.work-item:hover .wi-action { color: var(--red); }
+/* HOME SELECTED WORK */
+.home-work{padding:100px 5%;border-top:1px solid var(--b);}
+.sec-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:56px;}
+.sec-label{font-size:.52rem;letter-spacing:5px;text-transform:uppercase;color:var(--red);display:block;margin-bottom:6px;}
+.sec-title{font-weight:800;font-size:clamp(2rem,4vw,4rem);letter-spacing:-1px;text-transform:uppercase;line-height:1;}
+.sec-more{font-size:.55rem;letter-spacing:3px;text-transform:uppercase;color:var(--mid);transition:color .3s;cursor:none;}
+.sec-more:hover{color:var(--white);}
+.work-list{}
+.work-item{display:grid;grid-template-columns:44px 1fr 180px 70px;align-items:center;padding:22px 0;border-bottom:1px solid var(--b);cursor:none;transition:padding-left .3s;position:relative;}
+.work-item::before{content:'';position:absolute;left:-5%;top:0;width:0;height:100%;background:rgba(200,53,26,.06);transition:width .35s;z-index:0;}
+.work-item:hover::before{width:110%;}
+.work-item:hover{padding-left:14px;}
+.work-item>*{position:relative;z-index:1;}
+.wi-num{font-size:.52rem;letter-spacing:3px;color:var(--grey2);font-weight:700;}
+.wi-name{font-weight:800;font-size:clamp(1.1rem,2.2vw,1.9rem);letter-spacing:-.5px;text-transform:uppercase;line-height:1;}
+.wi-tag{font-size:.5rem;letter-spacing:2px;text-transform:uppercase;color:var(--mid);}
+.wi-arrow{font-size:.5rem;letter-spacing:2px;text-transform:uppercase;color:var(--grey2);text-align:right;transition:color .3s;}
+.work-item:hover .wi-arrow{color:var(--red);}
 
 /* HOME STATEMENT */
-.home-statement {
-  padding: 120px 5%;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
-  border-top: 1px solid var(--border);
-}
-.hs-left blockquote {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: clamp(1.8rem, 3.5vw, 3.2rem);
-  line-height: 1.25;
-  color: var(--white);
-  max-width: 560px;
-}
-.hs-left blockquote em { color: var(--mid); font-style: normal; }
-.hs-right {
-  font-size: .78rem; color: var(--mid); line-height: 2;
-}
-.hs-right p + p { margin-top: 20px; }
-.hs-cta {
-  display: inline-flex; align-items: center; gap: 14px;
-  margin-top: 36px;
-  font-size: .58rem; letter-spacing: 3px; text-transform: uppercase;
-  color: var(--white); border-bottom: 1px solid var(--border);
-  padding-bottom: 12px; transition: gap .3s, border-color .3s;
-}
-.hs-cta:hover { gap: 22px; border-color: var(--red); color: var(--red); }
+.home-stmt{padding:110px 5%;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;border-top:1px solid var(--b);}
+.stmt-quote{font-family:var(--serif);font-style:italic;font-size:clamp(1.8rem,3.5vw,3.2rem);line-height:1.25;color:var(--white);max-width:560px;}
+.stmt-quote em{color:var(--mid);font-style:normal;}
+.stmt-right{font-size:.78rem;color:var(--mid);line-height:2;}
+.stmt-right p+p{margin-top:18px;}
+.stmt-cta{display:inline-flex;align-items:center;gap:14px;margin-top:34px;font-size:.55rem;letter-spacing:3px;text-transform:uppercase;color:var(--white);border-bottom:1px solid var(--b);padding-bottom:10px;transition:gap .3s,border-color .3s,color .3s;cursor:none;}
+.stmt-cta:hover{gap:22px;border-color:var(--red);color:var(--red);}
 
-/* DISCIPLINES STRIP */
-.disciplines {
-  display: grid; grid-template-columns: repeat(3,1fr);
-  border-top: 1px solid var(--border);
-}
-.disc-item {
-  padding: 60px 5%;
-  border-right: 1px solid var(--border);
-  position: relative; overflow: hidden;
-}
-.disc-item:last-child { border-right: none; }
-.disc-item::after {
-  content: '';
-  position: absolute; bottom: 0; left: 0;
-  width: 0; height: 2px; background: var(--red);
-  transition: width .5s ease;
-}
-.disc-item:hover::after { width: 100%; }
-.disc-n {
-  font-size: .45rem; letter-spacing: 4px; color: var(--grey2);
-  margin-bottom: 24px; display: block;
-}
-.disc-name {
-  font-family: var(--sans); font-weight: 800;
-  font-size: 1.6rem; letter-spacing: -0.5px;
-  text-transform: uppercase; line-height: 1; margin-bottom: 14px;
-}
-.disc-desc { font-size: .72rem; color: var(--mid); line-height: 1.85; }
+/* DISCIPLINES */
+.discs{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--b);}
+.disc{padding:56px 5%;border-right:1px solid var(--b);position:relative;overflow:hidden;}
+.disc:last-child{border-right:none;}
+.disc::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--red);transition:width .5s;}
+.disc:hover::after{width:100%;}
+.disc-n{font-size:.44rem;letter-spacing:4px;color:var(--grey2);margin-bottom:22px;display:block;}
+.disc-name{font-weight:800;font-size:1.55rem;letter-spacing:-.5px;text-transform:uppercase;line-height:1;margin-bottom:12px;}
+.disc-desc{font-size:.7rem;color:var(--mid);line-height:1.85;}
 
-/* ─────────────────────────────────────
-   ░░ ABOUT PAGE ░░
-───────────────────────────────────── */
-.page-hero {
-  min-height: 60svh;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 100px 5% 60px;
-  border-bottom: 1px solid var(--border);
-  position: relative; overflow: hidden;
-}
-.page-hero-bg {
-  position: absolute; top:50%; right: 0; left: 0;
-  transform: translateY(-50%);
-  font-family: var(--sans); font-weight: 800;
-  font-size: 28vw; line-height: 1;
-  text-align: right; padding-right: 3%;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(244,241,236,.04);
-  pointer-events: none; user-select: none;
-}
-.page-hero-label {
-  font-size: .55rem; letter-spacing: 5px; text-transform: uppercase;
-  color: var(--red); margin-bottom: 20px;
-}
-.page-hero h2 {
-  font-family: var(--sans); font-weight: 800;
-  font-size: clamp(3rem, 8vw, 9rem);
-  letter-spacing: -3px; text-transform: uppercase;
-  line-height: .88; position: relative; z-index: 1;
-}
-.page-hero h2 em {
-  font-family: var(--serif); font-style: italic; font-weight: 400;
-  font-size: clamp(2.5rem, 6.5vw, 7.5rem);
-  color: var(--mid); letter-spacing: 0;
-  display: block; margin-top: 8px;
-}
+/* ── PAGE HERO (shared) ── */
+.page-hero{min-height:55svh;display:flex;flex-direction:column;justify-content:flex-end;padding:90px 5% 56px;border-bottom:1px solid var(--b);position:relative;overflow:hidden;}
+.page-hero-bg{position:absolute;top:50%;right:0;transform:translateY(-50%);font-weight:800;font-size:28vw;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(244,241,236,.04);pointer-events:none;user-select:none;padding-right:3%;}
+.page-hero-label{font-size:.52rem;letter-spacing:5px;text-transform:uppercase;color:var(--red);margin-bottom:18px;position:relative;z-index:1;}
+.page-hero h2{font-weight:800;font-size:clamp(3rem,8vw,9rem);letter-spacing:-3px;text-transform:uppercase;line-height:.88;position:relative;z-index:1;}
+.page-hero h2 em{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(2.5rem,6.5vw,7.5rem);color:var(--mid);letter-spacing:0;display:block;margin-top:8px;}
 
-/* About body */
-.about-body { padding: 80px 5%; }
-.about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start; }
-.about-sticky { position: sticky; top: 80px; }
-.about-sticky img {
-  width: 100%; aspect-ratio: 3/4; object-fit: cover;
-  object-position: top center;
-  filter: grayscale(1);
-  transition: filter .6s;
-}
-.about-sticky img:hover { filter: grayscale(0); }
-.about-sticky-label {
-  font-size: .48rem; letter-spacing: 4px; text-transform: uppercase;
-  color: var(--mid); margin-top: 16px;
-}
-.about-text {}
-.about-section-label {
-  font-size: .5rem; letter-spacing: 5px; text-transform: uppercase;
-  color: var(--red); margin-bottom: 24px;
-}
-.about-text h3 {
-  font-family: var(--sans); font-weight: 800;
-  font-size: clamp(1.8rem, 3vw, 2.8rem);
-  letter-spacing: -1px; text-transform: uppercase;
-  line-height: .95; margin-bottom: 28px;
-}
-.about-text p {
-  font-size: .82rem; color: var(--mid); line-height: 2; margin-bottom: 20px;
-}
-.about-text p strong { color: var(--white); font-weight: 700; }
-.about-divider { height: 1px; background: var(--border); margin: 60px 0; }
+/* ── ABOUT ── */
+.about-body{padding:80px 5%;}
+.about-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:80px;align-items:start;}
+.about-sticky{position:sticky;top:80px;}
+.about-sticky img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top center;filter:grayscale(1);transition:filter .6s;}
+.about-sticky img:hover{filter:grayscale(0);}
+.about-sticky-cap{font-size:.46rem;letter-spacing:4px;text-transform:uppercase;color:var(--mid);margin-top:14px;}
+.about-sec-label{font-size:.48rem;letter-spacing:5px;text-transform:uppercase;color:var(--red);margin-bottom:22px;}
+.about-text h3{font-weight:800;font-size:clamp(1.8rem,3vw,2.8rem);letter-spacing:-1px;text-transform:uppercase;line-height:.95;margin-bottom:26px;}
+.about-text p{font-size:.8rem;color:var(--mid);line-height:2;margin-bottom:18px;}
+.about-text p strong{color:var(--white);font-weight:700;}
+.about-div{height:1px;background:var(--b);margin:52px 0;}
+.vals{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:8px;}
+.val{background:var(--grey);padding:26px 22px;transition:background .3s;}
+.val:hover{background:var(--grey2);}
+.val-n{font-size:.42rem;letter-spacing:3px;color:var(--mid);margin-bottom:8px;display:block;}
+.val-title{font-weight:800;font-size:.95rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+.val-desc{font-size:.68rem;color:var(--mid);line-height:1.8;}
 
-/* Values grid */
-.values-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 10px;
-}
-.value-card {
-  background: var(--grey); padding: 28px 24px;
-  transition: background .3s;
-}
-.value-card:hover { background: var(--grey2); }
-.vc-n { font-size: .45rem; letter-spacing: 3px; color: var(--mid); margin-bottom: 10px; display: block; }
-.vc-title { font-weight: 800; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-.vc-desc { font-size: .7rem; color: var(--mid); line-height: 1.8; }
+/* ── SERVICES ── */
+.svcs-body{padding:80px 5%;}
+.svc{display:grid;grid-template-columns:180px 1fr;gap:56px;padding:56px 0;border-bottom:1px solid var(--b);align-items:start;}
+.svc:first-child{padding-top:0;}
+.svc-num{font-weight:800;font-size:5rem;letter-spacing:-2px;color:var(--grey2);line-height:1;transition:color .3s;}
+.svc:hover .svc-num{color:var(--red);}
+.svc-title{font-weight:800;font-size:clamp(1.8rem,3vw,3rem);letter-spacing:-1px;text-transform:uppercase;line-height:.95;margin-bottom:18px;}
+.svc-desc{font-size:.78rem;color:var(--mid);line-height:2;max-width:560px;margin-bottom:26px;}
+.svc-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.svc-tag{font-size:.48rem;letter-spacing:2px;text-transform:uppercase;padding:5px 13px;border:1px solid var(--b);color:var(--mid);transition:border-color .3s,color .3s;}
+.svc:hover .svc-tag{border-color:rgba(244,241,236,.15);color:rgba(244,241,236,.6);}
 
-/* ─────────────────────────────────────
-   ░░ SERVICES PAGE ░░
-───────────────────────────────────── */
-.services-body { padding: 80px 5%; }
-.service-block {
-  display: grid; grid-template-columns: 200px 1fr;
-  gap: 60px; padding: 60px 0;
-  border-bottom: 1px solid var(--border);
-  align-items: start;
-}
-.service-block:first-child { padding-top: 0; }
-.sb-num {
-  font-family: var(--sans); font-weight: 800;
-  font-size: 5rem; letter-spacing: -2px;
-  color: var(--grey2); line-height: 1;
-  transition: color .3s;
-}
-.service-block:hover .sb-num { color: var(--red); }
-.sb-right {}
-.sb-title {
-  font-family: var(--sans); font-weight: 800;
-  font-size: clamp(1.8rem, 3vw, 3rem);
-  letter-spacing: -1px; text-transform: uppercase;
-  line-height: .95; margin-bottom: 20px;
-}
-.sb-desc { font-size: .8rem; color: var(--mid); line-height: 2; max-width: 560px; margin-bottom: 28px; }
-.sb-list {
-  display: flex; flex-wrap: wrap; gap: 8px;
-}
-.sb-tag {
-  font-size: .5rem; letter-spacing: 2px; text-transform: uppercase;
-  padding: 6px 14px; border: 1px solid var(--border);
-  color: var(--mid); transition: border-color .3s, color .3s;
-}
-.service-block:hover .sb-tag { border-color: var(--border2); color: var(--mid); }
+/* ── WORK ── */
+.work-body{padding:60px 5%;}
+.proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:3px;}
+.proj-card{position:relative;overflow:hidden;cursor:none;background:var(--grey);aspect-ratio:4/3;}
+.proj-card.tall{aspect-ratio:3/4;}
+.proj-img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1) brightness(.75);transition:filter .6s,transform .8s cubic-bezier(.2,1,.3,1);}
+.proj-card:hover .proj-img{filter:grayscale(0) brightness(.9);transform:scale(1.06);}
+.proj-over{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.92) 0%,rgba(10,10,10,.2) 50%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:30px;}
+.pc-cat{font-size:.46rem;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:7px;}
+.pc-title{font-weight:800;font-size:clamp(1.1rem,2.2vw,1.9rem);letter-spacing:-.5px;text-transform:uppercase;line-height:1;}
+.pc-open{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:.5rem;letter-spacing:3px;text-transform:uppercase;color:var(--mid);opacity:0;transform:translateY(8px);transition:opacity .35s,transform .35s;}
+.proj-card:hover .pc-open{opacity:1;transform:translateY(0);}
+.pattern-sec{padding:90px 5%;border-top:1px solid var(--b);}
+.pattern-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-top:52px;}
+.pg-item{overflow:hidden;cursor:none;}
+.pg-item img{width:100%;display:block;filter:grayscale(.5);transition:filter .5s,transform .6s cubic-bezier(.2,1,.3,1);}
+.pg-item:hover img{filter:grayscale(0);transform:scale(1.05);}
 
-/* ─────────────────────────────────────
-   ░░ PROJECTS / WORK PAGE ░░
-───────────────────────────────────── */
-.projects-body { padding: 60px 5%; }
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2px;
-}
-.proj-card {
-  position: relative; overflow: hidden; cursor: none;
-  background: var(--grey);
-  aspect-ratio: 4/3;
-}
-.proj-card.tall { aspect-ratio: 3/4; }
-.proj-card-img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  filter: grayscale(1) brightness(.75);
-  transition: filter .6s ease, transform .8s cubic-bezier(.2,1,.3,1);
-}
-.proj-card:hover .proj-card-img { filter: grayscale(0) brightness(.9); transform: scale(1.06); }
-.proj-card-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(10,10,10,.92) 0%, rgba(10,10,10,.2) 50%, transparent 100%);
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 32px;
-}
-.pc-cat {
-  font-size: .48rem; letter-spacing: 4px; text-transform: uppercase;
-  color: var(--red); margin-bottom: 8px;
-}
-.pc-title {
-  font-family: var(--sans); font-weight: 800;
-  font-size: clamp(1.2rem, 2.5vw, 2rem);
-  letter-spacing: -.5px; text-transform: uppercase; line-height: 1;
-}
-.pc-open {
-  display: flex; align-items: center; gap: 10px;
-  margin-top: 16px;
-  font-size: .52rem; letter-spacing: 3px; text-transform: uppercase;
-  color: var(--mid); opacity: 0;
-  transform: translateY(8px);
-  transition: opacity .35s, transform .35s;
-}
-.proj-card:hover .pc-open { opacity: 1; transform: translateY(0); }
+/* ── CONTACT ── */
+.contact-body{padding:80px 5%;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.contact-intro{font-size:.78rem;color:var(--mid);line-height:2;max-width:380px;margin-bottom:52px;}
+.contact-items{border-top:1px solid var(--b);}
+.contact-item{display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-bottom:1px solid var(--b);transition:padding-left .3s;cursor:none;}
+.contact-item:hover{padding-left:12px;}
+.ci-label{font-size:.46rem;letter-spacing:4px;text-transform:uppercase;color:var(--mid);display:block;margin-bottom:4px;}
+.ci-val{font-weight:700;font-size:.98rem;color:var(--white);}
+.ci-arr{color:var(--red);font-size:1.1rem;transition:transform .3s;}
+.contact-item:hover .ci-arr{transform:translateX(6px);}
+.contact-right h3{font-weight:800;font-size:clamp(2rem,4vw,4rem);letter-spacing:-1.5px;text-transform:uppercase;line-height:.9;margin-bottom:38px;}
+.contact-right h3 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--mid);font-size:clamp(1.8rem,3.5vw,3.5rem);display:block;letter-spacing:0;}
+.avail-card{background:var(--grey);padding:34px;border:1px solid var(--b);margin-top:38px;}
+.avail-label{font-size:.43rem;letter-spacing:5px;text-transform:uppercase;color:var(--mid);margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--b);}
+.avail-dot{display:inline-flex;align-items:center;gap:10px;font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--white);margin-bottom:14px;}
+.avail-dot::before{content:'';width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px #22c55e;animation:pd 2s infinite;}
+@keyframes pd{0%,100%{opacity:1;}50%{opacity:.3;}}
+.avail-text{font-size:.7rem;color:var(--mid);line-height:1.85;}
+.contact-strip{background:var(--red);padding:48px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
+.cs-text{font-weight:800;font-size:clamp(1.5rem,3vw,2.8rem);letter-spacing:-1px;text-transform:uppercase;line-height:1;}
+.cs-email{font-family:var(--serif);font-style:italic;font-size:clamp(1.4rem,2.8vw,2.4rem);color:rgba(255,255,255,.75);transition:color .3s;cursor:none;}
+.cs-email:hover{color:#fff;}
 
-/* Pattern gallery */
-.pattern-section { padding: 100px 5%; border-top: 1px solid var(--border); }
-.pattern-grid {
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 2px; margin-top: 60px;
-}
-.pg-item {
-  overflow: hidden; position: relative; cursor: none;
-}
-.pg-item img {
-  width: 100%; display: block;
-  filter: grayscale(.5);
-  transition: filter .5s, transform .6s cubic-bezier(.2,1,.3,1);
-}
-.pg-item:hover img { filter: grayscale(0); transform: scale(1.05); }
+/* FOOTER */
+.site-footer{background:var(--grey);padding:26px 5%;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--b);flex-wrap:wrap;gap:8px;}
+.sf-brand{font-weight:800;font-size:.62rem;letter-spacing:5px;text-transform:uppercase;}
+.sf-brand span{color:var(--red);}
+.sf-copy,.sf-loc{font-size:.48rem;letter-spacing:2px;text-transform:uppercase;color:var(--mid);}
 
-/* ─────────────────────────────────────
-   ░░ CONTACT PAGE ░░
-───────────────────────────────────── */
-.contact-body {
-  padding: 80px 5%;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
-  min-height: calc(100svh - 60px - 200px);
-}
-.contact-left {}
-.contact-left p {
-  font-size: .82rem; color: var(--mid); line-height: 2; max-width: 400px; margin-bottom: 60px;
-}
-.contact-items { border-top: 1px solid var(--border); }
-.contact-item {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 24px 0; border-bottom: 1px solid var(--border);
-  transition: padding-left .3s;
-}
-.contact-item:hover { padding-left: 12px; }
-.ci-label { font-size: .48rem; letter-spacing: 4px; text-transform: uppercase; color: var(--mid); display: block; margin-bottom: 5px; }
-.ci-val {
-  font-family: var(--sans); font-weight: 700;
-  font-size: 1rem; color: var(--white);
-}
-.ci-arr { color: var(--red); font-size: 1.1rem; transition: transform .3s; }
-.contact-item:hover .ci-arr { transform: translateX(6px); }
+/* VIEWER */
+#viewer{position:fixed;inset:0;z-index:600;display:flex;flex-direction:column;background:var(--black);transform:translateY(100%);transition:transform .55s cubic-bezier(.2,1,.3,1);}
+#viewer.open{transform:translateY(0);}
+.viewer-bar{display:flex;justify-content:space-between;align-items:center;padding:0 5%;height:60px;border-bottom:1px solid var(--b);flex-shrink:0;background:var(--grey);}
+.viewer-title{font-weight:700;font-size:.68rem;letter-spacing:3px;text-transform:uppercase;}
+.viewer-close{font-size:.55rem;letter-spacing:3px;text-transform:uppercase;color:var(--mid);display:flex;align-items:center;gap:10px;transition:color .3s;cursor:none;}
+.viewer-close::before{content:'✕';font-size:.85rem;}
+.viewer-close:hover{color:var(--red);}
+.viewer-frame{flex:1;overflow:hidden;}
+.viewer-frame iframe{width:100%;height:100%;border:none;background:#111;display:block;}
 
-.contact-right {}
-.contact-right h3 {
-  font-family: var(--sans); font-weight: 800;
-  font-size: clamp(2rem, 4vw, 4rem);
-  letter-spacing: -1.5px; text-transform: uppercase; line-height: .9;
-  margin-bottom: 40px;
-}
-.contact-right h3 em {
-  font-family: var(--serif); font-style: italic;
-  font-weight: 400; color: var(--mid);
-  font-size: clamp(1.8rem, 3.5vw, 3.5rem);
-  display: block; letter-spacing: 0;
-}
-/* Availability card */
-.avail-card {
-  background: var(--grey); padding: 36px;
-  border: 1px solid var(--border); margin-top: 40px;
-}
-.avail-label {
-  font-size: .45rem; letter-spacing: 5px; text-transform: uppercase;
-  color: var(--mid); margin-bottom: 20px; padding-bottom: 14px;
-  border-bottom: 1px solid var(--border);
-}
-.avail-dot {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: .65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--white);
-  margin-bottom: 16px;
-}
-.avail-dot::before {
-  content: '';
-  width: 8px; height: 8px; border-radius: 50%;
-  background: #22c55e;
-  box-shadow: 0 0 8px #22c55e;
-  animation: pulse-dot 2s ease infinite;
-}
-@keyframes pulse-dot {
-  0%,100% { opacity: 1; } 50% { opacity: .4; }
-}
-.avail-text { font-size: .72rem; color: var(--mid); line-height: 1.85; }
+/* REVEAL */
+.fu{opacity:0;transform:translateY(22px);transition:opacity .7s,transform .7s;}
+.fu.in{opacity:1;transform:translateY(0);}
+.fu.d1{transition-delay:.1s;}
+.fu.d2{transition-delay:.2s;}
+.fu.d3{transition-delay:.3s;}
 
-/* Contact footer strip */
-.contact-footer-strip {
-  background: var(--red); padding: 50px 5%;
-  display: flex; justify-content: space-between; align-items: center;
+/* MOBILE */
+@media(max-width:900px){
+  .hero-main{grid-template-columns:1fr;}
+  .hero-right{align-items:flex-start;}
+  .hero-desc{text-align:left;}
+  .home-stmt{grid-template-columns:1fr;}
+  .discs{grid-template-columns:1fr;}
+  .disc{border-right:none;border-bottom:1px solid var(--b);}
+  .about-grid{grid-template-columns:1fr;}
+  .about-sticky{position:static;}
+  .svc{grid-template-columns:70px 1fr;gap:28px;}
+  .svc-num{font-size:3rem;}
+  .proj-grid{grid-template-columns:1fr;}
+  .proj-card,.proj-card.tall{aspect-ratio:16/9;}
+  .pattern-grid{grid-template-columns:repeat(2,1fr);}
+  .contact-body{grid-template-columns:1fr;gap:56px;}
+  .contact-strip{flex-direction:column;text-align:center;}
+  .site-footer{justify-content:center;text-align:center;}
+  .work-item{grid-template-columns:36px 1fr 60px;}
+  .work-item .wi-tag{display:none;}
+  .vals{grid-template-columns:1fr;}
 }
-.cfs-text {
-  font-family: var(--sans); font-weight: 800;
-  font-size: clamp(1.5rem, 3vw, 2.8rem);
-  letter-spacing: -1px; text-transform: uppercase;
-  color: var(--white); line-height: 1;
-}
-.cfs-link {
-  font-family: var(--serif); font-style: italic;
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
-  color: rgba(255,255,255,.7);
-  transition: color .3s;
-}
-.cfs-link:hover { color: var(--white); }
-
-/* ─────────────────────────────────────
-   SHARED FOOTER
-───────────────────────────────────── */
-.site-footer {
-  background: var(--grey); padding: 28px 5%;
-  display: flex; justify-content: space-between; align-items: center;
-  border-top: 1px solid var(--border);
-}
-.sf-brand { font-weight: 800; font-size: .65rem; letter-spacing: 5px; text-transform: uppercase; }
-.sf-brand span { color: var(--red); }
-.sf-copy { font-size: .5rem; letter-spacing: 2px; text-transform: uppercase; color: var(--mid); }
-.sf-loc { font-size: .5rem; letter-spacing: 2px; text-transform: uppercase; color: var(--mid); }
-
-/* ─────────────────────────────────────
-   VIEWER OVERLAY
-───────────────────────────────────── */
-#viewer {
-  position: fixed; inset: 0; z-index: 600;
-  display: flex; flex-direction: column;
-  background: var(--black);
-  transform: translateY(100%);
-  transition: transform .55s cubic-bezier(.2,1,.3,1);
-}
-#viewer.open { transform: translateY(0); }
-.viewer-nav {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 0 5%; height: 60px;
-  border-bottom: 1px solid var(--border);
-  flex-shrink: 0; background: var(--grey);
-}
-.viewer-name {
-  font-weight: 700; font-size: .7rem; letter-spacing: 3px; text-transform: uppercase;
-}
-.viewer-close {
-  font-size: .58rem; letter-spacing: 3px; text-transform: uppercase;
-  color: var(--mid); display: flex; align-items: center; gap: 10px;
-  transition: color .3s; padding: 0;
-}
-.viewer-close::before { content: '✕'; font-size: .85rem; }
-.viewer-close:hover { color: var(--red); }
-.viewer-frame { flex: 1; overflow: hidden; }
-.viewer-frame iframe { width: 100%; height: 100%; border: none; background: #111; display: block; }
-
-/* ─────────────────────────────────────
-   REVEAL ANIMATIONS
-───────────────────────────────────── */
-.fade-up {
-  opacity: 0; transform: translateY(24px);
-  transition: opacity .7s ease, transform .7s ease;
-}
-.fade-up.in { opacity: 1; transform: translateY(0); }
-.fade-up.d1 { transition-delay: .08s; }
-.fade-up.d2 { transition-delay: .16s; }
-.fade-up.d3 { transition-delay: .24s; }
-
-/* ─────────────────────────────────────
-   MOBILE
-───────────────────────────────────── */
-@media (max-width: 900px) {
-  .hero-main { grid-template-columns: 1fr; }
-  .hero-right { align-items: flex-start; }
-  .hero-desc { text-align: left; }
-  .home-statement { grid-template-columns: 1fr; }
-  .disciplines { grid-template-columns: 1fr; }
-  .disc-item { border-right: none; border-bottom: 1px solid var(--border); }
-  .about-grid { grid-template-columns: 1fr; }
-  .about-sticky { position: static; }
-  .service-block { grid-template-columns: 80px 1fr; gap: 32px; }
-  .sb-num { font-size: 3rem; }
-  .projects-grid { grid-template-columns: 1fr; }
-  .pattern-grid { grid-template-columns: repeat(2,1fr); }
-  .contact-body { grid-template-columns: 1fr; gap: 60px; }
-  .contact-footer-strip { flex-direction: column; gap: 16px; text-align: center; }
-  .work-item { grid-template-columns: 36px 1fr 80px; }
-  .work-item > :nth-child(3) { display: none; }
-  .site-footer { flex-direction: column; gap: 8px; text-align: center; }
-  .values-grid { grid-template-columns: 1fr; }
-}
-@media (max-width: 600px) {
-  .nav-link { padding: 0 12px; font-size: .52rem; }
-  .nav-logo { font-size: .7rem; letter-spacing: 3px; }
-  .page-hero h2 { letter-spacing: -2px; }
-  .pattern-grid { grid-template-columns: repeat(2,1fr); }
-  .hero-bar { flex-wrap: wrap; gap: 12px; }
+@media(max-width:600px){
+  .nav-link{padding:0 10px;font-size:.5rem;}
+  .nav-logo{letter-spacing:3px;}
+  .pattern-grid{grid-template-columns:repeat(2,1fr);}
 }
 </style>
 </head>
 <body>
 
-<!-- CURSOR -->
 <div id="cursor"></div>
 
-<!-- NAV -->
 <nav id="nav">
   <div class="nav-logo">Q<span>.</span>RATOR</div>
   <div class="nav-right">
-    <a class="nav-link active" onclick="goTo('home')">Home</a>
-    <a class="nav-link" onclick="goTo('about')">About</a>
-    <a class="nav-link" onclick="goTo('services')">Services</a>
-    <a class="nav-link" onclick="goTo('work')">Work</a>
-    <a class="nav-link" onclick="goTo('contact')">Contact</a>
+    <a class="nav-link active" onclick="goTo('home');return false;" href="#">Home</a>
+    <a class="nav-link" onclick="goTo('about');return false;" href="#">About</a>
+    <a class="nav-link" onclick="goTo('services');return false;" href="#">Services</a>
+    <a class="nav-link" onclick="goTo('work');return false;" href="#">Work</a>
+    <a class="nav-link" onclick="goTo('contact');return false;" href="#">Contact</a>
   </div>
 </nav>
 
-
-<!-- ══════════════════════════════════
-     HOME
-══════════════════════════════════ -->
+<!-- ═══ HOME ═══ -->
 <div id="page-home" class="page active">
-
-  <!-- HERO -->
   <section class="hero">
-    <div class="hero-bg-text">QRATOR</div>
-
+    <div class="hero-bg">QRATOR</div>
     <div class="hero-main">
       <div class="hero-left">
         <div class="hero-kicker">Creative Director — Nairobi, Kenya</div>
-        <h1 class="hero-title">
-          Design<br>that<br>breaks
-          <em>the gate.</em>
-        </h1>
+        <h1 class="hero-title">Design<br>that<br>breaks<em>the gate.</em></h1>
       </div>
       <div class="hero-right">
         <p class="hero-desc">Q-Rator is a multidisciplinary design practice. Brand identity, editorial systems, and visual storytelling — built to dismantle gatekeeping in arts and culture.</p>
-        <a class="hero-cta" onclick="goTo('work')">View Projects →</a>
+        <a class="hero-cta" onclick="goTo('work');return false;" href="#">View Projects →</a>
       </div>
     </div>
-
     <div class="hero-bar">
       <div class="hero-bar-item"><strong>Liyai Maina</strong> — Creative Director</div>
-      <div class="hero-scroll">
-        <div class="scroll-track"></div>
-        Scroll
-      </div>
+      <div class="scroll-hint"><div class="scroll-track"></div>Scroll</div>
       <div class="hero-bar-item">Est. <strong>2024</strong></div>
       <div class="hero-bar-item">12+ <strong>Projects</strong></div>
     </div>
   </section>
 
-  <!-- SELECTED WORK -->
   <section class="home-work">
-    <div class="section-header">
-      <div>
-        <div class="section-label">Selected Work</div>
-        <div class="section-title">Projects</div>
-      </div>
-      <a class="section-link" onclick="goTo('work')">Full Archive →</a>
+    <div class="sec-header">
+      <div><span class="sec-label">Selected Work</span><div class="sec-title">Projects</div></div>
+      <a class="sec-more" onclick="goTo('work');return false;" href="#">Full Archive →</a>
     </div>
     <div class="work-list">
-      <div class="work-item fade-up" onclick="openCase(caseFiles.africaArt)">
-        <div class="wi-num">01</div>
-        <div class="wi-name">Africa Is Art</div>
-        <div class="wi-tag">Visual Commentary</div>
-        <div class="wi-action">Open →</div>
-      </div>
-      <div class="work-item fade-up d1" onclick="openCase(caseFiles.KAC)">
-        <div class="wi-num">02</div>
-        <div class="wi-name">Kenya Art & Culture</div>
-        <div class="wi-tag">Editorial Layout</div>
-        <div class="wi-action">Open →</div>
-      </div>
-      <div class="work-item fade-up d2" onclick="openCase(caseFiles.netplus)">
-        <div class="wi-num">03</div>
-        <div class="wi-name">Net Plus</div>
-        <div class="wi-tag">Brand Identity</div>
-        <div class="wi-action">Open →</div>
-      </div>
-      <div class="work-item fade-up d3" onclick="openCase(caseFiles.Elite)">
-        <div class="wi-num">04</div>
-        <div class="wi-name">Elite Transport</div>
-        <div class="wi-tag">Brand Identity</div>
-        <div class="wi-action">Open →</div>
-      </div>
-      <div class="work-item fade-up" onclick="openCase(caseFiles.Femi1)">
-        <div class="wi-num">05</div>
-        <div class="wi-name">FemiTech Design</div>
-        <div class="wi-tag">Brand / Print</div>
-        <div class="wi-action">Open →</div>
-      </div>
+      <div class="work-item fu" onclick="openCase('africaArt')"><div class="wi-num">01</div><div class="wi-name">Africa Is Art</div><div class="wi-tag">Visual Commentary</div><div class="wi-arrow">Open →</div></div>
+      <div class="work-item fu d1" onclick="openCase('KAC')"><div class="wi-num">02</div><div class="wi-name">Kenya Art &amp; Culture</div><div class="wi-tag">Editorial Layout</div><div class="wi-arrow">Open →</div></div>
+      <div class="work-item fu d2" onclick="openCase('netplus')"><div class="wi-num">03</div><div class="wi-name">Net Plus</div><div class="wi-tag">Brand Identity</div><div class="wi-arrow">Open →</div></div>
+      <div class="work-item fu d3" onclick="openCase('Elite')"><div class="wi-num">04</div><div class="wi-name">Elite Transport</div><div class="wi-tag">Brand Identity</div><div class="wi-arrow">Open →</div></div>
+      <div class="work-item fu" onclick="openCase('Femi1')"><div class="wi-num">05</div><div class="wi-name">FemiTech Design</div><div class="wi-tag">Brand / Print</div><div class="wi-arrow">Open →</div></div>
     </div>
   </section>
 
-  <!-- STATEMENT -->
-  <section class="home-statement">
-    <div class="hs-left fade-up">
-      <blockquote>"Design is not decoration. It is the architecture of <em>who gets in.</em>"</blockquote>
-    </div>
-    <div class="hs-right fade-up d1">
-      <p>Q-Rator exists because the creative systems that shape culture — branding, identity, editorial, visibility — have historically been controlled by a narrow set of gatekeepers.</p>
-      <p>The practice is a direct response: to build work that is rigorous, rooted, and refuses to ask for permission.</p>
-      <a class="hs-cta" onclick="goTo('about')">About the Practice →</a>
+  <section class="home-stmt">
+    <blockquote class="stmt-quote fu">"Design is not decoration. It is the architecture of <em>who gets in.</em>"</blockquote>
+    <div class="fu d1">
+      <p class="stmt-right">Q-Rator exists because the creative systems that shape culture — branding, identity, editorial, visibility — have historically been controlled by a narrow set of gatekeepers.</p>
+      <p class="stmt-right" style="margin-top:18px;">The practice is a direct response: to build work that is rigorous, rooted, and refuses to ask for permission.</p>
+      <a class="stmt-cta" onclick="goTo('about');return false;" href="#">About the Practice →</a>
     </div>
   </section>
 
-  <!-- DISCIPLINES -->
-  <div class="disciplines">
-    <div class="disc-item fade-up">
-      <span class="disc-n">01</span>
-      <div class="disc-name">Brand Identity</div>
-      <p class="disc-desc">Logos, visual systems, typography logic — built to last and built to mean something.</p>
-    </div>
-    <div class="disc-item fade-up d1">
-      <span class="disc-n">02</span>
-      <div class="disc-name">Editorial Design</div>
-      <p class="disc-desc">Layouts, magazines, and cultural publications that organize complex narratives into clear form.</p>
-    </div>
-    <div class="disc-item fade-up d2">
-      <span class="disc-n">03</span>
-      <div class="disc-name">Cultural Advocacy</div>
-      <p class="disc-desc">Strategy decks, presentations, and systems that argue for access and expand who participates in culture.</p>
-    </div>
+  <div class="discs">
+    <div class="disc fu"><span class="disc-n">01</span><div class="disc-name">Brand Identity</div><p class="disc-desc">Logos, visual systems, typography logic — built to last and built to mean something.</p></div>
+    <div class="disc fu d1"><span class="disc-n">02</span><div class="disc-name">Editorial Design</div><p class="disc-desc">Layouts, magazines, and publications that organize complex narratives into clear form.</p></div>
+    <div class="disc fu d2"><span class="disc-n">03</span><div class="disc-name">Cultural Advocacy</div><p class="disc-desc">Strategy and systems that argue for access and expand who participates in culture.</p></div>
   </div>
 
   <footer class="site-footer">
@@ -847,66 +309,41 @@ h1.hero-title em {
   </footer>
 </div>
 
-
-<!-- ══════════════════════════════════
-     ABOUT
-══════════════════════════════════ -->
+<!-- ═══ ABOUT ═══ -->
 <div id="page-about" class="page">
   <div class="page-hero">
     <div class="page-hero-bg">ABOUT</div>
     <div class="page-hero-label">The Practice</div>
-    <h2>Q-Rator<em>& the work behind it.</em></h2>
+    <h2>Q-Rator<em>&amp; the work behind it.</em></h2>
   </div>
-
   <div class="about-body">
     <div class="about-grid">
-      <div class="about-sticky fade-up">
+      <div class="about-sticky fu">
         <img src="Frankie.png" alt="Liyai Maina" onerror="this.style.background='var(--grey)'">
-        <p class="about-sticky-label">Liyai Maina — Creative Director, Nairobi</p>
+        <p class="about-sticky-cap">Liyai Maina — Creative Director, Nairobi</p>
       </div>
       <div class="about-text">
-        <div class="about-section-label fade-up">Who We Are</div>
-        <h3 class="fade-up">A practice built<br>against the grain.</h3>
-        <p class="fade-up">Q-Rator is a Nairobi-based multidisciplinary design practice founded by Liyai Maina. The work spans brand identity, editorial design, pattern systems, and cultural advocacy.</p>
-        <p class="fade-up d1"><strong>The name is deliberate.</strong> A curator selects what enters. Q-Rator questions who is doing the selecting — and builds tools to shift that balance.</p>
-        <p class="fade-up d1">Every project is approached as both a design problem and a cultural one. Who is this for? Who does it include? What does it make possible?</p>
-
-        <div class="about-divider"></div>
-
-        <div class="about-section-label fade-up">The Approach</div>
-        <h3 class="fade-up">Strategy first.<br>Aesthetics second.</h3>
-        <p class="fade-up">The practice doesn't separate thinking from making. Strategy and visual form develop together — because the best brand systems are arguments, not just looks.</p>
-        <p class="fade-up d1">Work is grounded in research, built around clarity, and finished to a level that demands to be taken seriously.</p>
-
-        <div class="about-divider"></div>
-
-        <div class="about-section-label fade-up">Core Values</div>
-        <div class="values-grid">
-          <div class="value-card fade-up">
-            <span class="vc-n">01</span>
-            <div class="vc-title">Access</div>
-            <p class="vc-desc">Design systems should open doors, not guard them.</p>
-          </div>
-          <div class="value-card fade-up d1">
-            <span class="vc-n">02</span>
-            <div class="vc-title">Rigour</div>
-            <p class="vc-desc">Ideas earn their place through precision and craft.</p>
-          </div>
-          <div class="value-card fade-up d2">
-            <span class="vc-n">03</span>
-            <div class="vc-title">Rootedness</div>
-            <p class="vc-desc">The work is African, Nairobi-born, and unapologetically so.</p>
-          </div>
-          <div class="value-card fade-up d3">
-            <span class="vc-n">04</span>
-            <div class="vc-title">Boldness</div>
-            <p class="vc-desc">Timid design is forgettable. Q-Rator is not.</p>
-          </div>
+        <div class="about-sec-label fu">Who We Are</div>
+        <h3 class="fu">A practice built against the grain.</h3>
+        <p class="fu">Q-Rator is a Nairobi-based multidisciplinary design practice founded by Liyai Maina. The work spans brand identity, editorial design, pattern systems, and cultural advocacy.</p>
+        <p class="fu d1"><strong>The name is deliberate.</strong> A curator selects what enters. Q-Rator questions who is doing the selecting — and builds tools to shift that balance.</p>
+        <p class="fu d1">Every project is approached as both a design problem and a cultural one. Who is this for? Who does it include? What does it make possible?</p>
+        <div class="about-div"></div>
+        <div class="about-sec-label fu">The Approach</div>
+        <h3 class="fu">Strategy first. Aesthetics second.</h3>
+        <p class="fu">The practice doesn't separate thinking from making. Strategy and visual form develop together — because the best brand systems are arguments, not just looks.</p>
+        <p class="fu d1">Work is grounded in research, built around clarity, and finished to a level that demands to be taken seriously.</p>
+        <div class="about-div"></div>
+        <div class="about-sec-label fu">Core Values</div>
+        <div class="vals">
+          <div class="val fu"><span class="val-n">01</span><div class="val-title">Access</div><p class="val-desc">Design systems should open doors, not guard them.</p></div>
+          <div class="val fu d1"><span class="val-n">02</span><div class="val-title">Rigour</div><p class="val-desc">Ideas earn their place through precision and craft.</p></div>
+          <div class="val fu d2"><span class="val-n">03</span><div class="val-title">Rootedness</div><p class="val-desc">The work is African, Nairobi-born, and unapologetically so.</p></div>
+          <div class="val fu d3"><span class="val-n">04</span><div class="val-title">Boldness</div><p class="val-desc">Timid design is forgettable. Q-Rator is not.</p></div>
         </div>
       </div>
     </div>
   </div>
-
   <footer class="site-footer">
     <div class="sf-brand">Q<span>.</span>RATOR</div>
     <div class="sf-copy">© 2026 Liyai Maina</div>
@@ -914,77 +351,47 @@ h1.hero-title em {
   </footer>
 </div>
 
-
-<!-- ══════════════════════════════════
-     SERVICES
-══════════════════════════════════ -->
+<!-- ═══ SERVICES ═══ -->
 <div id="page-services" class="page">
   <div class="page-hero">
     <div class="page-hero-bg">WORK</div>
     <div class="page-hero-label">What We Do</div>
-    <h2>Services<em>& capabilities.</em></h2>
+    <h2>Services<em>&amp; capabilities.</em></h2>
   </div>
-
-  <div class="services-body">
-    <div class="service-block fade-up">
-      <div class="sb-num">01</div>
-      <div class="sb-right">
-        <h4 class="sb-title">Brand Identity</h4>
-        <p class="sb-desc">Full visual identity development from strategy through to final assets. This is the core of the practice — building systems that communicate clearly and endure. Every project includes a thorough discovery phase to understand the client's world before a mark is drawn.</p>
-        <div class="sb-list">
-          <span class="sb-tag">Logo Design</span>
-          <span class="sb-tag">Brand Systems</span>
-          <span class="sb-tag">Typography</span>
-          <span class="sb-tag">Colour Strategy</span>
-          <span class="sb-tag">Brand Guidelines</span>
-        </div>
+  <div class="svcs-body">
+    <div class="svc fu">
+      <div class="svc-num">01</div>
+      <div>
+        <h4 class="svc-title">Brand Identity</h4>
+        <p class="svc-desc">Full visual identity development from strategy through to final assets. Every project includes a thorough discovery phase to understand the client's world before a mark is drawn.</p>
+        <div class="svc-tags"><span class="svc-tag">Logo Design</span><span class="svc-tag">Brand Systems</span><span class="svc-tag">Typography</span><span class="svc-tag">Colour Strategy</span><span class="svc-tag">Brand Guidelines</span></div>
       </div>
     </div>
-
-    <div class="service-block fade-up">
-      <div class="sb-num">02</div>
-      <div class="sb-right">
-        <h4 class="sb-title">Editorial & Print</h4>
-        <p class="sb-desc">Magazines, reports, menus, stationery, and publications. Editorial design is where content becomes form — where the layout itself makes an argument. The practice brings the same rigour applied to brand work to every printed surface.</p>
-        <div class="sb-list">
-          <span class="sb-tag">Magazine Layout</span>
-          <span class="sb-tag">Stationery</span>
-          <span class="sb-tag">Menus</span>
-          <span class="sb-tag">Annual Reports</span>
-          <span class="sb-tag">Print Collateral</span>
-        </div>
+    <div class="svc fu">
+      <div class="svc-num">02</div>
+      <div>
+        <h4 class="svc-title">Editorial &amp; Print</h4>
+        <p class="svc-desc">Magazines, reports, menus, stationery, and publications. Editorial design is where content becomes form — where the layout itself makes an argument.</p>
+        <div class="svc-tags"><span class="svc-tag">Magazine Layout</span><span class="svc-tag">Stationery</span><span class="svc-tag">Menus</span><span class="svc-tag">Annual Reports</span><span class="svc-tag">Print Collateral</span></div>
       </div>
     </div>
-
-    <div class="service-block fade-up">
-      <div class="sb-num">03</div>
-      <div class="sb-right">
-        <h4 class="sb-title">Cultural Strategy</h4>
-        <p class="sb-desc">Presentations, strategy decks, and communication frameworks for cultural organisations, artists, and advocacy groups. This work is about making arguments — about access, representation, and what creative industries owe their communities.</p>
-        <div class="sb-list">
-          <span class="sb-tag">Strategy Decks</span>
-          <span class="sb-tag">Presentations</span>
-          <span class="sb-tag">Communication Design</span>
-          <span class="sb-tag">Advocacy Materials</span>
-        </div>
+    <div class="svc fu">
+      <div class="svc-num">03</div>
+      <div>
+        <h4 class="svc-title">Cultural Strategy</h4>
+        <p class="svc-desc">Presentations, strategy decks, and communication frameworks for cultural organisations, artists, and advocacy groups.</p>
+        <div class="svc-tags"><span class="svc-tag">Strategy Decks</span><span class="svc-tag">Presentations</span><span class="svc-tag">Communication Design</span><span class="svc-tag">Advocacy Materials</span></div>
       </div>
     </div>
-
-    <div class="service-block fade-up">
-      <div class="sb-num">04</div>
-      <div class="sb-right">
-        <h4 class="sb-title">Pattern & Textile Systems</h4>
-        <p class="sb-desc">Original pattern work grounded in African design languages. The Liyai Pattern series represents an ongoing investigation into visual rhythm, institutional form, and cultural belonging — available for licensing or bespoke commission.</p>
-        <div class="sb-list">
-          <span class="sb-tag">Pattern Design</span>
-          <span class="sb-tag">Surface Graphics</span>
-          <span class="sb-tag">Textile Concepts</span>
-          <span class="sb-tag">Visual Research</span>
-        </div>
+    <div class="svc fu">
+      <div class="svc-num">04</div>
+      <div>
+        <h4 class="svc-title">Pattern &amp; Textile Systems</h4>
+        <p class="svc-desc">Original pattern work grounded in African design languages. Available for licensing or bespoke commission.</p>
+        <div class="svc-tags"><span class="svc-tag">Pattern Design</span><span class="svc-tag">Surface Graphics</span><span class="svc-tag">Textile Concepts</span><span class="svc-tag">Visual Research</span></div>
       </div>
     </div>
   </div>
-
   <footer class="site-footer">
     <div class="sf-brand">Q<span>.</span>RATOR</div>
     <div class="sf-copy">© 2026 Liyai Maina</div>
@@ -992,114 +399,51 @@ h1.hero-title em {
   </footer>
 </div>
 
-
-<!-- ══════════════════════════════════
-     WORK / PROJECTS
-══════════════════════════════════ -->
+<!-- ═══ WORK ═══ -->
 <div id="page-work" class="page">
   <div class="page-hero">
     <div class="page-hero-bg">WORK</div>
     <div class="page-hero-label">Full Archive</div>
-    <h2>Projects<em>& case studies.</em></h2>
+    <h2>Projects<em>&amp; case studies.</em></h2>
   </div>
-
-  <div class="projects-body">
-    <div class="projects-grid">
-      <div class="proj-card fade-up" onclick="openCase(caseFiles.africaArt)">
-        <img class="proj-card-img" src="Liyai (1).jpeg" alt="" onerror="this.style.display='none'">
-        <div class="proj-card-overlay">
-          <div class="pc-cat">Visual Commentary</div>
-          <div class="pc-title">Africa Is Art</div>
-          <div class="pc-open">View Project →</div>
-        </div>
-      </div>
-      <div class="proj-card tall fade-up d1" onclick="openCase(caseFiles.KAC)">
-        <img class="proj-card-img" src="Liyai (2).jpeg" alt="" onerror="this.style.display='none'">
-        <div class="proj-card-overlay">
-          <div class="pc-cat">Editorial Layout</div>
-          <div class="pc-title">Kenya Art & Culture</div>
-          <div class="pc-open">View Project →</div>
-        </div>
-      </div>
-      <div class="proj-card tall fade-up" onclick="openCase(caseFiles.netplus)">
-        <img class="proj-card-img" src="Liyai (3).jpeg" alt="" onerror="this.style.display='none'">
-        <div class="proj-card-overlay">
-          <div class="pc-cat">Brand Identity</div>
-          <div class="pc-title">Net Plus</div>
-          <div class="pc-open">View Project →</div>
-        </div>
-      </div>
-      <div class="proj-card fade-up d1" onclick="openCase(caseFiles.talanta)">
-        <img class="proj-card-img" src="Liyai (4).jpeg" alt="" onerror="this.style.display='none'">
-        <div class="proj-card-overlay">
-          <div class="pc-cat">Logo Design</div>
-          <div class="pc-title">Talanta Hela</div>
-          <div class="pc-open">View Project →</div>
-        </div>
-      </div>
-      <div class="proj-card fade-up" onclick="openCase(caseFiles.DTP)">
-        <img class="proj-card-img" src="Liyai (5).jpeg" alt="" onerror="this.style.display='none'">
-        <div class="proj-card-overlay">
-          <div class="pc-cat">Brand Identity</div>
-          <div class="pc-title">DTP Shipping</div>
-          <div class="pc-open">View Project →</div>
-        </div>
-      </div>
-      <div class="proj-card fade-up d1" onclick="openCase(caseFiles.Elite)">
-        <img class="proj-card-img" src="Liyai (6).jpeg" alt="" onerror="this.style.display='none'">
-        <div class="proj-card-overlay">
-          <div class="pc-cat">Brand Identity</div>
-          <div class="pc-title">Elite Transport</div>
-          <div class="pc-open">View Project →</div>
-        </div>
-      </div>
-      <div class="proj-card fade-up" onclick="openCase(caseFiles.Femi1)">
-        <img class="proj-card-img" src="Liyai (7).jpeg" alt="" onerror="this.style.display='none'">
-        <div class="proj-card-overlay">
-          <div class="pc-cat">Brand / Print</div>
-          <div class="pc-title">FemiTech Design</div>
-          <div class="pc-open">View Project →</div>
-        </div>
-      </div>
-      <div class="proj-card fade-up d1" onclick="openCase(caseFiles.Gatekeeping)">
-        <img class="proj-card-img" src="Liyai (8).jpeg" alt="" onerror="this.style.display='none'">
-        <div class="proj-card-overlay">
-          <div class="pc-cat">Advocacy / Strategy</div>
-          <div class="pc-title">Strategy Deck</div>
-          <div class="pc-open">View Project →</div>
-        </div>
-      </div>
+  <div class="work-body">
+    <div class="proj-grid">
+      <div class="proj-card fu" onclick="openCase('africaArt')"><img class="proj-img" src="Liyai (1).jpeg" alt="" onerror="this.style.display='none'"><div class="proj-over"><div class="pc-cat">Visual Commentary</div><div class="pc-title">Africa Is Art</div><div class="pc-open">View Project →</div></div></div>
+      <div class="proj-card tall fu d1" onclick="openCase('KAC')"><img class="proj-img" src="Liyai (2).jpeg" alt="" onerror="this.style.display='none'"><div class="proj-over"><div class="pc-cat">Editorial Layout</div><div class="pc-title">Kenya Art &amp; Culture</div><div class="pc-open">View Project →</div></div></div>
+      <div class="proj-card tall fu" onclick="openCase('netplus')"><img class="proj-img" src="Liyai (3).jpeg" alt="" onerror="this.style.display='none'"><div class="proj-over"><div class="pc-cat">Brand Identity</div><div class="pc-title">Net Plus</div><div class="pc-open">View Project →</div></div></div>
+      <div class="proj-card fu d1" onclick="openCase('talanta')"><img class="proj-img" src="Liyai (4).jpeg" alt="" onerror="this.style.display='none'"><div class="proj-over"><div class="pc-cat">Logo Design</div><div class="pc-title">Talanta Hela</div><div class="pc-open">View Project →</div></div></div>
+      <div class="proj-card fu" onclick="openCase('DTP')"><img class="proj-img" src="Liyai (5).jpeg" alt="" onerror="this.style.display='none'"><div class="proj-over"><div class="pc-cat">Brand Identity</div><div class="pc-title">DTP Shipping</div><div class="pc-open">View Project →</div></div></div>
+      <div class="proj-card fu d1" onclick="openCase('Elite')"><img class="proj-img" src="Liyai (6).jpeg" alt="" onerror="this.style.display='none'"><div class="proj-over"><div class="pc-cat">Brand Identity</div><div class="pc-title">Elite Transport</div><div class="pc-open">View Project →</div></div></div>
+      <div class="proj-card fu" onclick="openCase('Femi1')"><img class="proj-img" src="Liyai (7).jpeg" alt="" onerror="this.style.display='none'"><div class="proj-over"><div class="pc-cat">Brand / Print</div><div class="pc-title">FemiTech Design</div><div class="pc-open">View Project →</div></div></div>
+      <div class="proj-card fu d1" onclick="openCase('Gatekeeping')"><img class="proj-img" src="Liyai (8).jpeg" alt="" onerror="this.style.display='none'"><div class="proj-over"><div class="pc-cat">Advocacy / Strategy</div><div class="pc-title">Strategy Deck</div><div class="pc-open">View Project →</div></div></div>
+      <div class="proj-card fu" onclick="openCase('PCI1')"><img class="proj-img" src="Liyai (9).jpeg" alt="" onerror="this.style.display='none'"><div class="proj-over"><div class="pc-cat">Brandmark</div><div class="pc-title">PCI Brandmark</div><div class="pc-open">View Project →</div></div></div>
+      <div class="proj-card fu d1" onclick="openCase('PCI2')"><img class="proj-img" src="Liyai (10).jpeg" alt="" onerror="this.style.display='none'"><div class="proj-over"><div class="pc-cat">Emblem Logo</div><div class="pc-title">PCI Emblem</div><div class="pc-open">View Project →</div></div></div>
     </div>
 
-    <!-- Pattern series -->
-    <div class="pattern-section">
-      <div class="section-header fade-up">
-        <div>
-          <div class="section-label">Ongoing Series</div>
-          <div class="section-title">Liyai Pattern</div>
-        </div>
+    <div class="pattern-sec">
+      <div class="sec-header fu">
+        <div><span class="sec-label">Ongoing Series</span><div class="sec-title">Liyai Pattern</div></div>
       </div>
       <div class="pattern-grid">
-        <div class="pg-item fade-up"><img src="Liyai (7).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
-        <div class="pg-item fade-up d1"><img src="Liyai (8).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
-        <div class="pg-item fade-up d2"><img src="Liyai (9).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
-        <div class="pg-item fade-up d3"><img src="Liyai (10).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
-        <div class="pg-item fade-up"><img src="Liyai (11).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
-        <div class="pg-item fade-up d1"><img src="Liyai (12).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
-        <div class="pg-item fade-up d2"><img src="Liyai (13).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
-        <div class="pg-item fade-up d3"><img src="Liyai (14).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
-        <div class="pg-item fade-up"><img src="Liyai (15).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
-        <div class="pg-item fade-up d1"><img src="Liyai (16).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
-        <div class="pg-item fade-up d2"><img src="Liyai (17).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
-        <div class="pg-item fade-up d3"><img src="Liyai (18).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
-        <div class="pg-item fade-up"><img src="Liyai (19).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
-        <div class="pg-item fade-up d1"><img src="Liyai (20).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
-        <div class="pg-item fade-up d2"><img src="Liyai (21).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
-        <div class="pg-item fade-up d3"><img src="Liyai (22).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="pg-item fu"><img src="Liyai (7).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="pg-item fu d1"><img src="Liyai (8).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="pg-item fu d2"><img src="Liyai (9).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="pg-item fu d3"><img src="Liyai (10).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="pg-item fu"><img src="Liyai (11).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="pg-item fu d1"><img src="Liyai (12).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="pg-item fu d2"><img src="Liyai (13).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="pg-item fu d3"><img src="Liyai (14).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="pg-item fu"><img src="Liyai (15).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="pg-item fu d1"><img src="Liyai (16).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="pg-item fu d2"><img src="Liyai (17).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="pg-item fu d3"><img src="Liyai (18).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="pg-item fu"><img src="Liyai (19).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="pg-item fu d1"><img src="Liyai (20).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="pg-item fu d2"><img src="Liyai (21).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="pg-item fu d3"><img src="Liyai (22).jpeg" alt="" onerror="this.parentElement.style.display='none'"></div>
       </div>
     </div>
   </div>
-
   <footer class="site-footer">
     <div class="sf-brand">Q<span>.</span>RATOR</div>
     <div class="sf-copy">© 2026 Liyai Maina</div>
@@ -1107,59 +451,35 @@ h1.hero-title em {
   </footer>
 </div>
 
-
-<!-- ══════════════════════════════════
-     CONTACT
-══════════════════════════════════ -->
+<!-- ═══ CONTACT ═══ -->
 <div id="page-contact" class="page">
   <div class="page-hero">
     <div class="page-hero-bg">HELLO</div>
     <div class="page-hero-label">Get in Touch</div>
-    <h2>Contact<em>& commissions.</em></h2>
+    <h2>Contact<em>&amp; commissions.</em></h2>
   </div>
-
   <div class="contact-body">
-    <div class="contact-left fade-up">
-      <p>Q-Rator is open to brand identity, editorial, and cultural strategy commissions. If you have a project in mind — or just want to talk about the work — reach out directly.</p>
+    <div class="fu">
+      <p class="contact-intro">Q-Rator is open to brand identity, editorial, and cultural strategy commissions. If you have a project in mind — reach out directly.</p>
       <div class="contact-items">
-        <a href="/cdn-cgi/l/email-protection#4925203028202428202728092e24282025672a2624" class="contact-item">
-          <div>
-            <span class="ci-label">Email</span>
-            <span class="ci-val"><span class="__cf_email__" data-cfemail="bbd7d2c2dad2d6dad2d5dafbdcd6dad2d795d8d4d6">[email&#160;protected]</span></span>
-          </div>
-          <span class="ci-arr">→</span>
-        </a>
-        <a href="https://www.instagram.com/liyai_maina/" target="_blank" class="contact-item">
-          <div>
-            <span class="ci-label">Instagram</span>
-            <span class="ci-val">@liyai_maina</span>
-          </div>
-          <span class="ci-arr">→</span>
-        </a>
-        <div class="contact-item">
-          <div>
-            <span class="ci-label">Location</span>
-            <span class="ci-val">Nairobi, Kenya</span>
-          </div>
-        </div>
+        <a href="mailto:liyaimaina@gmail.com" class="contact-item"><div><span class="ci-label">Email</span><span class="ci-val">liyaimaina@gmail.com</span></div><span class="ci-arr">→</span></a>
+        <a href="https://www.instagram.com/liyai_maina/" target="_blank" class="contact-item"><div><span class="ci-label">Instagram</span><span class="ci-val">@liyai_maina</span></div><span class="ci-arr">→</span></a>
+        <div class="contact-item"><div><span class="ci-label">Location</span><span class="ci-val">Nairobi, Kenya</span></div></div>
       </div>
     </div>
-
-    <div class="contact-right fade-up d1">
-      <h3>Let's build<br>something<em>that matters.</em></h3>
+    <div class="fu d1">
+      <h3 class="contact-right"><span style="display:block">Let's build<br>something</span><em>that matters.</em></h3>
       <div class="avail-card">
         <div class="avail-label">Current Status</div>
         <div class="avail-dot">Available for new projects</div>
-        <p class="avail-text">Currently accepting brand identity and editorial design commissions. Response time is typically within 48 hours. Larger strategic projects welcome with lead time.</p>
+        <p class="avail-text">Currently accepting brand identity and editorial design commissions. Response time is typically within 48 hours.</p>
       </div>
     </div>
   </div>
-
-  <div class="contact-footer-strip">
-    <div class="cfs-text">Q-Rator Agencies<br>Est. 2024</div>
-    <a href="/cdn-cgi/l/email-protection#e28e8b9b838b8f838b8c83a2858f838b8ecc818d8f" class="cfs-link"><span class="__cf_email__" data-cfemail="6a0603130b03070b03040b2a0d070b030644090507">[email&#160;protected]</span></a>
+  <div class="contact-strip">
+    <div class="cs-text">Q-Rator Agencies<br>Est. 2024</div>
+    <a href="mailto:liyaimaina@gmail.com" class="cs-email">liyaimaina@gmail.com</a>
   </div>
-
   <footer class="site-footer">
     <div class="sf-brand">Q<span>.</span>RATOR</div>
     <div class="sf-copy">© 2026 Liyai Maina</div>
@@ -1167,70 +487,19 @@ h1.hero-title em {
   </footer>
 </div>
 
-
-<!-- CASE VIEWER -->
+<!-- VIEWER -->
 <div id="viewer">
-  <div class="viewer-nav">
-    <div class="viewer-name" id="viewer-name">—</div>
+  <div class="viewer-bar">
+    <div class="viewer-title" id="viewer-title">—</div>
     <button class="viewer-close" onclick="closeCase()">Close</button>
   </div>
   <div class="viewer-frame">
-    <iframe id="viewer-frame" src="about:blank"></iframe>
+    <iframe id="viewer-iframe" src="about:blank"></iframe>
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-/* ─── Cursor ─── */
-const cur = document.getElementById('cursor');
-document.addEventListener('mousemove', e => {
-  cur.style.left = e.clientX + 'px';
-  cur.style.top  = e.clientY + 'px';
-});
-document.querySelectorAll('a, button, .work-item, .proj-card, .pg-item, .contact-item, .disc-item, .service-block').forEach(el => {
-  el.addEventListener('mouseenter', () => document.body.classList.add('on-link'));
-  el.addEventListener('mouseleave', () => document.body.classList.remove('on-link'));
-});
-
-/* ─── Nav scroll ─── */
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('solid', window.scrollY > 10);
-}, { passive: true });
-
-/* ─── Page routing ─── */
-const pages = {
-  home:     document.getElementById('page-home'),
-  about:    document.getElementById('page-about'),
-  services: document.getElementById('page-services'),
-  work:     document.getElementById('page-work'),
-  contact:  document.getElementById('page-contact'),
-};
-const navLinks = document.querySelectorAll('.nav-link');
-
-function goTo(id) {
-  Object.values(pages).forEach(p => p.classList.remove('active'));
-  pages[id].classList.add('active');
-  navLinks.forEach(l => l.classList.remove('active'));
-  const activeLink = [...navLinks].find(l => l.getAttribute('onclick')?.includes(`'${id}'`));
-  if (activeLink) activeLink.classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  // Re-observe reveal elements on new page
-  setTimeout(triggerReveal, 100);
-}
-
-/* ─── Scroll reveal ─── */
-function triggerReveal() {
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-up:not(.in)').forEach(el => io.observe(el));
-}
-triggerReveal();
-
-/* ─── Case files ─── */
-const caseFiles = {
+<script>
+var CASES = {
   africaArt:   { title: 'Africa Is Art',               file: 'Liyai_Maina_AFRICA IS ART.png' },
   KAC:         { title: 'Kenya Art & Culture Magazine', file: 'Document from Liyai Maina.pdf' },
   netplus:     { title: 'Net Plus — Brand System',      file: 'Re-Brand Project1 (1).pdf' },
@@ -1244,7 +513,70 @@ const caseFiles = {
   Gatekeeping: { title: 'Strategy Presentation',        file: 'Gate-keeping in the Arts, Culture and Design Space_.pptx' }
 };
 
-function openCase(d) {
-  document.getElementById('viewer-name').textContent = d.title;
-  document.getElementById('viewer-frame').src = encodeURI(d.file);
-  document.getElementById('viewer').classList.ad
+var PAGES = {
+  home:     document.getElementById('page-home'),
+  about:    document.getElementById('page-about'),
+  services: document.getElementById('page-services'),
+  work:     document.getElementById('page-work'),
+  contact:  document.getElementById('page-contact')
+};
+
+function goTo(id) {
+  for (var k in PAGES) PAGES[k].classList.remove('active');
+  PAGES[id].classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(function(l) {
+    l.classList.toggle('active', l.getAttribute('onclick').indexOf("'"+id+"'") > -1);
+  });
+  window.scrollTo(0, 0);
+  setTimeout(initReveal, 80);
+}
+
+function openCase(key) {
+  var d = CASES[key];
+  if (!d) return;
+  document.getElementById('viewer-title').textContent = d.title;
+  document.getElementById('viewer-iframe').src = d.file;
+  document.getElementById('viewer').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCase() {
+  document.getElementById('viewer').classList.remove('open');
+  document.body.style.overflow = '';
+  setTimeout(function(){ document.getElementById('viewer-iframe').src = 'about:blank'; }, 600);
+}
+
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeCase(); });
+
+// Cursor
+var cur = document.getElementById('cursor');
+document.addEventListener('mousemove', function(e){
+  cur.style.left = e.clientX + 'px';
+  cur.style.top  = e.clientY + 'px';
+});
+document.querySelectorAll('a,button,.work-item,.proj-card,.pg-item,.contact-item,.disc,.svc,.val').forEach(function(el){
+  el.addEventListener('mouseenter', function(){ document.body.classList.add('hl'); });
+  el.addEventListener('mouseleave', function(){ document.body.classList.remove('hl'); });
+});
+
+// Nav solid on scroll
+var nav = document.getElementById('nav');
+window.addEventListener('scroll', function(){
+  nav.classList.toggle('solid', window.scrollY > 10);
+}, {passive:true});
+
+// Reveal on scroll
+function initReveal() {
+  var els = document.querySelectorAll('.fu:not(.in)');
+  if (!els.length) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold: 0.08});
+  els.forEach(function(el){ io.observe(el); });
+}
+initReveal();
+</script>
+</body>
+</html>
